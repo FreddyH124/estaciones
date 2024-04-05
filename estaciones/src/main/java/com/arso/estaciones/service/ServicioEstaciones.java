@@ -4,17 +4,21 @@ import com.arso.estaciones.interfaces.IServicioEstaciones;
 import com.arso.estaciones.model.Bicicleta;
 import com.arso.estaciones.model.Coordenada;
 import com.arso.estaciones.model.DTO.BicicletaDTO;
+import com.arso.estaciones.model.DTO.DTOHelper;
 import com.arso.estaciones.model.DTO.EstacionDTO;
 import com.arso.estaciones.model.Estacion;
 import com.arso.estaciones.repository.RepositorioBicicletas;
 import com.arso.estaciones.repository.RepositorioEstaciones;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -66,26 +70,50 @@ public class ServicioEstaciones implements IServicioEstaciones {
 
     @Override
     public Page<BicicletaDTO> getAllBiciletas(String idEstacion, Pageable pageable) {
-        return null;
+        return repositorioBicicletas.findByEstacionActualId(idEstacion, pageable).map(bicicleta -> {
+            BicicletaDTO dto =DTOHelper.fromEntity(bicicleta);
+            return dto;
+        });
     }
 
     @Override
     public Page<EstacionDTO> getAllEstaciones(Pageable pageable) {
-        return null;
+        return repositorioEstaciones.findAll(pageable).map(estacion -> {
+            EstacionDTO dto =DTOHelper.fromEntity(estacion);
+            return dto;
+        });
     }
 
     @Override
     public EstacionDTO getEstacion(String idEstacion) {
+        Optional<Estacion> estacionOptional = repositorioEstaciones.findById(idEstacion);
+        if(estacionOptional.isPresent()){
+            Estacion estacion = estacionOptional.get();
+            return DTOHelper.fromEntity(estacion);
+        }
         return null;
     }
 
     @Override
     public Page<BicicletaDTO> getBicicletasDisponibles(String idEstacion, Pageable pageable) {
-        return null;
+        return repositorioBicicletas.findByDisponibleAndEstacionActualId(idEstacion, pageable).map(bicicleta -> {
+            BicicletaDTO dto =DTOHelper.fromEntity(bicicleta);
+            return dto;
+        });
     }
 
     @Override
     public void estacionarBicicleta(String idEstacion, String idBicicleta) {
-
+        Optional<Estacion> estacionOptional = repositorioEstaciones.findById(idEstacion);
+        if(estacionOptional.isPresent()){
+            Estacion estacion = estacionOptional.get();
+            if(estacion.hayHueco()){
+                Optional<Bicicleta> bicicletaOptional = repositorioBicicletas.findById(idBicicleta);
+                if(bicicletaOptional.isPresent()){
+                    Bicicleta bicicleta = bicicletaOptional.get();
+                    estacion.addBicicleta(bicicleta);
+                }
+            }
+        }
     }
 }

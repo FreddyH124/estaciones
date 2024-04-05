@@ -11,15 +11,17 @@ import java.util.Map;
 
 @Document(collection = "bicicletas")
 public class Bicicleta implements IIdentificable {
+/*
     public enum Estado
     {
         BUEN_ESTADO,
         DAÑADA
     }
+*/
 
     @Id
     private String id;
-    private Estado estado;
+    //private Estado estado;
     private boolean disponible;
     private Date fechaDeAlta;
     private Date fechaDeBaja;
@@ -32,7 +34,7 @@ public class Bicicleta implements IIdentificable {
 
 
     public Bicicleta(String modelo, Estacion estacionActual) {
-        this.estado = Estado.BUEN_ESTADO;
+        //this.estado = Estado.BUEN_ESTADO;
         this.disponible = true;
         this.fechaDeAlta = new Date();
         this.modelo = modelo;
@@ -41,7 +43,7 @@ public class Bicicleta implements IIdentificable {
 
     public Bicicleta() {
         this.disponible = true;
-        this.estado = Estado.BUEN_ESTADO;
+        //this.estado = Estado.BUEN_ESTADO;
         this.fechaDeAlta = new Date();
     }
 
@@ -55,13 +57,13 @@ public class Bicicleta implements IIdentificable {
         this.id = id;
     }
 
-    public Estado getEstado() {
+    /*public Estado getEstado() {
         return estado;
     }
 
     public void setEstado(Estado estado) {
         this.estado = estado;
-    }
+    }*/
 
     public boolean isDisponible() {
         return disponible;
@@ -115,6 +117,6 @@ public class Bicicleta implements IIdentificable {
         setFechaDeBaja(new Date());
         setMotivoBaja(motivo);
         setDisponible(false);
-        setEstado(Estado.DAÑADA);
+        //setEstado(Estado.DAÑADA);
     }
 }

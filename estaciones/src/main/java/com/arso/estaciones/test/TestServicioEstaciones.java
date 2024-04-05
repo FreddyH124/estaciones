@@ -14,10 +14,10 @@ public class TestServicioEstaciones {
 
         System.out.println("El id de la estacion guardada es: " + id);*/
 
-        /*String idBicicleta = servicio.altaBicicleta("modelo scott", "660a8a99c413d95cf2d24f92");
+        /*String idBicicleta = servicio.altaBicicleta("modelo Scott", "660a8a99c413d95cf2d24f92");
         System.out.println("El id de la estacion guardada es: " + idBicicleta);*/
 
-        servicio.bajaBicicleta("660a8ab41c94dc0a24548043", "motivo de test");
+        servicio.bajaBicicleta("660ee3319c58675f44b0d337", "motivo de test");
 
 
         context.close();
