@@ -11,6 +11,7 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -64,6 +65,7 @@ public class ControladorEstaciones {
         });
     }
 
+    @PreAuthorize("hasAuthority('NORMAL')")//TODO completar para cada metodo
     @GetMapping("/{id}")
     public EntityModel<EstacionDTO> getEstacionById(@PathVariable String id) {
         EstacionDTO dto = servicioEstaciones.getEstacion(id);
