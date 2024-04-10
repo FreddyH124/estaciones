@@ -1,19 +1,16 @@
 package com.arso.estaciones.interfaces;
 
-import com.arso.estaciones.model.Coordenada;
-import com.arso.estaciones.model.DTO.BicicletaDTO;
-import com.arso.estaciones.model.DTO.EstacionDTO;
+import com.arso.estaciones.model.DTO.*;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface IServicioEstaciones {
     //Servicios a gestor
-    String altaEstación(String nombre, int puestos,
-                           String direccion , double lat, double lng);
+    String altaEstacion(AltaEstacionDTO dto);
 
-    String altaBicicleta(String modelo, String idEstacion);
+    String altaBicicleta(AltaBicicletaDTO dto);
 
-    void bajaBicicleta(String idBicicleta, String motivo);
+    void bajaBicicleta(BajaBicicletaDTO dto);
 
     Page<BicicletaDTO> getAllBiciletas(String idEstacion, Pageable pageable);
 
@@ -25,5 +22,5 @@ public interface IServicioEstaciones {
 
     Page<BicicletaDTO> getBicicletasDisponibles(String idEstacion, Pageable pageable);
 
-    void estacionarBicicleta(String idEstacion, String idBicicleta);
+    void estacionarBicicleta(EstacionarBicicletaDTO dto);
 }

@@ -3,9 +3,7 @@ package com.arso.estaciones.service;
 import com.arso.estaciones.interfaces.IServicioEstaciones;
 import com.arso.estaciones.model.Bicicleta;
 import com.arso.estaciones.model.Coordenada;
-import com.arso.estaciones.model.DTO.BicicletaDTO;
-import com.arso.estaciones.model.DTO.DTOHelper;
-import com.arso.estaciones.model.DTO.EstacionDTO;
+import com.arso.estaciones.model.DTO.*;
 import com.arso.estaciones.model.Estacion;
 import com.arso.estaciones.repository.RepositorioBicicletas;
 import com.arso.estaciones.repository.RepositorioEstaciones;
@@ -33,20 +31,50 @@ public class ServicioEstaciones implements IServicioEstaciones {
     }
 
     @Override
-    public String altaEstación(String nombre, int puestos, String direccion, double lat, double lng) {
-        Coordenada coordenada = new Coordenada(lat, lng);
-        Estacion estacion = new Estacion(nombre, puestos, direccion,coordenada);
+    public String altaEstacion(AltaEstacionDTO dto) {
+
+        if(dto.getNombre() == null || dto.getNombre().isEmpty()){
+            throw new IllegalArgumentException("nombre: no debe ser nulo ni vacio");
+        }
+
+        if(dto.getPuestos() <= 0){
+            throw new IllegalArgumentException("puestos: no debe ser mayor que 0");
+        }
+
+        if(dto.getDireccion() == null || dto.getDireccion().isEmpty()){
+            throw new IllegalArgumentException("direccion: no debe ser nulo ni vacio");
+        }
+
+        if(dto.getLat() <= 0){
+            throw new IllegalArgumentException("lat: no debe ser mayor que 0");
+        }
+
+        if(dto.getLng() <= 0){
+            throw new IllegalArgumentException("lng: no debe ser mayor que 0");
+        }
+
+        Coordenada coordenada = new Coordenada(dto.getLat(), dto.getLng());
+        Estacion estacion = new Estacion(dto.getNombre(), dto.getPuestos(), dto.getDireccion(),coordenada);
         repositorioEstaciones.save(estacion);
         return estacion.getId();
     }
 
     @Override
-    public String altaBicicleta(String modelo, String idEstacion) {
-        Optional<Estacion> estacionOptional = repositorioEstaciones.findById(idEstacion);
+    public String altaBicicleta(AltaBicicletaDTO dto) {
+
+        if(dto.getIdEstacion() == null || dto.getIdEstacion().isEmpty()){
+            throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
+        }
+
+        if(dto.getModelo() == null || dto.getModelo().isEmpty()){
+            throw new IllegalArgumentException("modelo: no debe ser nulo ni vacio");
+        }
+
+        Optional<Estacion> estacionOptional = repositorioEstaciones.findById(dto.getIdEstacion());
         if(estacionOptional.isPresent()){
             Estacion estacion = estacionOptional.get();
             if(estacion.hayHueco()){
-                Bicicleta bicicleta = new Bicicleta(modelo, estacion);
+                Bicicleta bicicleta = new Bicicleta(dto.getModelo(), estacion);
                 repositorioBicicletas.save(bicicleta);
 
                 estacion.addBicicleta(bicicleta);
@@ -58,18 +86,33 @@ public class ServicioEstaciones implements IServicioEstaciones {
     }
 
     @Override
-    public void bajaBicicleta(String idBicicleta, String motivo) {
-        Optional<Bicicleta> bicicletaOptional = repositorioBicicletas.findById(idBicicleta);
+    public void bajaBicicleta(BajaBicicletaDTO dto) {
+
+        if(dto.getIdBicicleta() == null || dto.getIdBicicleta().isEmpty()){
+            throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
+
+        }
+
+        if(dto.getMotivo() == null || dto.getMotivo().isEmpty()){
+            throw new IllegalArgumentException("motivo: no debe ser nulo ni vacio");
+        }
+
+        Optional<Bicicleta> bicicletaOptional = repositorioBicicletas.findById(dto.getIdBicicleta());
 
         if(bicicletaOptional.isPresent()){
             Bicicleta bicicleta = bicicletaOptional.get();
-            bicicleta.darDeBaja(motivo);
+            bicicleta.darDeBaja(dto.getMotivo());
             repositorioBicicletas.save(bicicleta);
         }
     }
 
     @Override
     public Page<BicicletaDTO> getAllBiciletas(String idEstacion, Pageable pageable) {
+
+        if(idEstacion == null || idEstacion.isEmpty()){
+            throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
+        }
+
         return repositorioBicicletas.findByEstacionActualId(idEstacion, pageable).map(bicicleta -> {
             BicicletaDTO dto =DTOHelper.fromEntity(bicicleta);
             return dto;
@@ -86,6 +129,11 @@ public class ServicioEstaciones implements IServicioEstaciones {
 
     @Override
     public EstacionDTO getEstacion(String idEstacion) {
+
+        if(idEstacion == null || idEstacion.isEmpty()){
+            throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
+        }
+
         Optional<Estacion> estacionOptional = repositorioEstaciones.findById(idEstacion);
         if(estacionOptional.isPresent()){
             Estacion estacion = estacionOptional.get();
@@ -96,6 +144,11 @@ public class ServicioEstaciones implements IServicioEstaciones {
 
     @Override
     public Page<BicicletaDTO> getBicicletasDisponibles(String idEstacion, Pageable pageable) {
+
+        if(idEstacion == null || idEstacion.isEmpty()){
+            throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
+        }
+
         return repositorioBicicletas.findByDisponibleAndEstacionActualId(idEstacion, pageable).map(bicicleta -> {
             BicicletaDTO dto =DTOHelper.fromEntity(bicicleta);
             return dto;
@@ -103,12 +156,21 @@ public class ServicioEstaciones implements IServicioEstaciones {
     }
 
     @Override
-    public void estacionarBicicleta(String idEstacion, String idBicicleta) {
-        Optional<Estacion> estacionOptional = repositorioEstaciones.findById(idEstacion);
+    public void estacionarBicicleta(EstacionarBicicletaDTO dto) {
+
+        if(dto.getIdEstacion() == null || dto.getIdEstacion().isEmpty()){
+            throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
+        }
+
+        if(dto.getIdBicicleta() == null || dto.getIdBicicleta().isEmpty()){
+            throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
+        }
+
+        Optional<Estacion> estacionOptional = repositorioEstaciones.findById(dto.getIdEstacion());
         if(estacionOptional.isPresent()){
             Estacion estacion = estacionOptional.get();
             if(estacion.hayHueco()){
-                Optional<Bicicleta> bicicletaOptional = repositorioBicicletas.findById(idBicicleta);
+                Optional<Bicicleta> bicicletaOptional = repositorioBicicletas.findById(dto.getIdBicicleta());
                 if(bicicletaOptional.isPresent()){
                     Bicicleta bicicleta = bicicletaOptional.get();
                     estacion.addBicicleta(bicicleta);

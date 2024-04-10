@@ -1,9 +1,7 @@
 package com.arso.estaciones.rest;
 
 import com.arso.estaciones.interfaces.IServicioEstaciones;
-import com.arso.estaciones.model.DTO.BicicletaDTO;
-import com.arso.estaciones.model.DTO.EstacionDTO;
-import com.arso.estaciones.model.Estacion;
+import com.arso.estaciones.model.DTO.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,11 +9,12 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("estaciones")
@@ -31,6 +30,34 @@ public class ControladorEstaciones {
         this.servicioEstaciones = servicioEstaciones;
     }
 
+    @PreAuthorize("hasAuthority('GESTOR')")
+    @PostMapping("/alta")
+    public ResponseEntity<Void> altaEstacion(@RequestBody AltaEstacionDTO dto) {
+        String id = servicioEstaciones.altaEstacion(dto);
+        URI url = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(id).toUri();
+
+        return ResponseEntity.created(url).build();
+    }
+
+    @PreAuthorize("hasAuthority('GESTOR')")
+    @PostMapping("/bicicletas/alta")
+    public ResponseEntity<Void> altaBicicletas(@RequestBody AltaBicicletaDTO dto) {
+        String id = servicioEstaciones.altaBicicleta(dto);
+        URI url = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(id).toUri();
+
+        return ResponseEntity.created(url).build();
+    }
+
+    @PreAuthorize("hasAuthority('GESTOR')")
+    @PostMapping("/bicicletas/baja")
+    public ResponseEntity<Void> bajaBicicleta(@RequestBody BajaBicicletaDTO dto) {
+        servicioEstaciones.bajaBicicleta(dto);
+        return ResponseEntity.ok().build();
+    }
+
+    @PreAuthorize("hasAuthority('GESTOR')")
     @GetMapping("/{id}/bicicletas")
     public PagedModel<EntityModel<BicicletaDTO>> getBicicletasByEstacion(@PathVariable String id, Pageable pageable) {
         Page<BicicletaDTO> result = servicioEstaciones.getAllBiciletas(id, pageable);
@@ -39,7 +66,7 @@ public class ControladorEstaciones {
             try {
                 model.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder
                                 .methodOn(ControladorEstaciones.class)
-                                .getEstacionById(bicicletaDTO.getId()))
+                                .bajaBicicleta(null))
                         .withSelfRel());
             }catch (Exception e){
                 e.printStackTrace();
@@ -48,6 +75,7 @@ public class ControladorEstaciones {
         });
     }
 
+    @PreAuthorize("hasAnyAuthority('GESTOR','NORMAL')")
     @GetMapping()
     public PagedModel<EntityModel<EstacionDTO>> getEstaciones(Pageable pageable) {
         Page<EstacionDTO> result = servicioEstaciones.getAllEstaciones(pageable);
@@ -65,7 +93,7 @@ public class ControladorEstaciones {
         });
     }
 
-    @PreAuthorize("hasAuthority('NORMAL')")//TODO completar para cada metodo
+    @PreAuthorize("hasAnyAuthority('GESTOR','NORMAL')")
     @GetMapping("/{id}")
     public EntityModel<EstacionDTO> getEstacionById(@PathVariable String id) {
         EstacionDTO dto = servicioEstaciones.getEstacion(id);
@@ -78,6 +106,7 @@ public class ControladorEstaciones {
         return model;
     }
 
+    @PreAuthorize("hasAnyAuthority('GESTOR','NORMAL')")
     @GetMapping("/{id}/bicicletas/disponibles")
     public PagedModel<EntityModel<BicicletaDTO>> getBicicletasDisponiblesByEstacion(@PathVariable String id, Pageable pageable) {
         Page<BicicletaDTO> result = servicioEstaciones.getBicicletasDisponibles(id, pageable);
@@ -94,4 +123,12 @@ public class ControladorEstaciones {
             return model;
         });
     }
+
+    @PreAuthorize("hasAnyAuthority('GESTOR','NORMAL')")
+    @PostMapping("/estacionar")
+    ResponseEntity<Void> estacionar(@RequestBody EstacionarBicicletaDTO dto) {
+        servicioEstaciones.estacionarBicicleta(dto);
+        return ResponseEntity.ok().build();
+    }
+
 }
