@@ -10,7 +10,7 @@ public interface IServicioEstaciones {
 
     String altaBicicleta(AltaBicicletaDTO dto);
 
-    void bajaBicicleta(BajaBicicletaDTO dto);
+    void bajaBicicleta(String idBicicleta, String motivo);
 
     Page<BicicletaDTO> getAllBiciletas(String idEstacion, Pageable pageable);
 

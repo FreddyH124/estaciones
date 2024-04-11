@@ -112,6 +112,6 @@ public class Estacion implements IIdentificable {
 
 
     public boolean hayHueco(){
-        return bicicletas.size() < puestos-1;
+        return bicicletas.size() <= puestos;
     }
 }

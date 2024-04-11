@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class GlobalExceptionHandler {
+public class IllegalArgumentExceptionHandler {
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)

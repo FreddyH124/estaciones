@@ -32,6 +32,8 @@ public class SecurityConfiguration {
             .permitAll()
             .antMatchers("/estaciones/estacionar")
             .permitAll()
+            .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**")
+            .permitAll()
             .anyRequest()
             .authenticated()
             .and()

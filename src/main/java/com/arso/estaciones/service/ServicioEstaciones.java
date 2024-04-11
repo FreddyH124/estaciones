@@ -32,27 +32,6 @@ public class ServicioEstaciones implements IServicioEstaciones {
 
     @Override
     public String altaEstacion(AltaEstacionDTO dto) {
-
-        if(dto.getNombre() == null || dto.getNombre().isEmpty()){
-            throw new IllegalArgumentException("nombre: no debe ser nulo ni vacio");
-        }
-
-        if(dto.getPuestos() <= 0){
-            throw new IllegalArgumentException("puestos: no debe ser mayor que 0");
-        }
-
-        if(dto.getDireccion() == null || dto.getDireccion().isEmpty()){
-            throw new IllegalArgumentException("direccion: no debe ser nulo ni vacio");
-        }
-
-        if(dto.getLat() <= 0){
-            throw new IllegalArgumentException("lat: no debe ser mayor que 0");
-        }
-
-        if(dto.getLng() <= 0){
-            throw new IllegalArgumentException("lng: no debe ser mayor que 0");
-        }
-
         Coordenada coordenada = new Coordenada(dto.getLat(), dto.getLng());
         Estacion estacion = new Estacion(dto.getNombre(), dto.getPuestos(), dto.getDireccion(),coordenada);
         repositorioEstaciones.save(estacion);
@@ -61,15 +40,6 @@ public class ServicioEstaciones implements IServicioEstaciones {
 
     @Override
     public String altaBicicleta(AltaBicicletaDTO dto) {
-
-        if(dto.getIdEstacion() == null || dto.getIdEstacion().isEmpty()){
-            throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
-        }
-
-        if(dto.getModelo() == null || dto.getModelo().isEmpty()){
-            throw new IllegalArgumentException("modelo: no debe ser nulo ni vacio");
-        }
-
         Optional<Estacion> estacionOptional = repositorioEstaciones.findById(dto.getIdEstacion());
         if(estacionOptional.isPresent()){
             Estacion estacion = estacionOptional.get();
@@ -86,22 +56,17 @@ public class ServicioEstaciones implements IServicioEstaciones {
     }
 
     @Override
-    public void bajaBicicleta(BajaBicicletaDTO dto) {
+    public void bajaBicicleta(String idBicicleta, String motivo) {
 
-        if(dto.getIdBicicleta() == null || dto.getIdBicicleta().isEmpty()){
+        if(idBicicleta == null || idBicicleta.isEmpty()){
             throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
-
         }
 
-        if(dto.getMotivo() == null || dto.getMotivo().isEmpty()){
-            throw new IllegalArgumentException("motivo: no debe ser nulo ni vacio");
-        }
-
-        Optional<Bicicleta> bicicletaOptional = repositorioBicicletas.findById(dto.getIdBicicleta());
+        Optional<Bicicleta> bicicletaOptional = repositorioBicicletas.findById(idBicicleta);
 
         if(bicicletaOptional.isPresent()){
             Bicicleta bicicleta = bicicletaOptional.get();
-            bicicleta.darDeBaja(dto.getMotivo());
+            bicicleta.darDeBaja(motivo);
             repositorioBicicletas.save(bicicleta);
         }
     }
@@ -157,15 +122,6 @@ public class ServicioEstaciones implements IServicioEstaciones {
 
     @Override
     public void estacionarBicicleta(EstacionarBicicletaDTO dto) {
-
-        if(dto.getIdEstacion() == null || dto.getIdEstacion().isEmpty()){
-            throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
-        }
-
-        if(dto.getIdBicicleta() == null || dto.getIdBicicleta().isEmpty()){
-            throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
-        }
-
         Optional<Estacion> estacionOptional = repositorioEstaciones.findById(dto.getIdEstacion());
         if(estacionOptional.isPresent()){
             Estacion estacion = estacionOptional.get();

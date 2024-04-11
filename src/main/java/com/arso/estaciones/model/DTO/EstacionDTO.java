@@ -1,42 +1,22 @@
 package com.arso.estaciones.model.DTO;
 
 import com.arso.estaciones.interfaces.IIdentificable;
+import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@Schema(description = "DTO para representar una estación")
 public class EstacionDTO implements IIdentificable {
+    @Schema(description = "ID de la estación", example = "6616cee50a78571ff80a8ff3")
     private String id;
+    @Schema(description = "Nombre de la estación", example = "Estación Central")
     private String nombre;
+    @Schema(description = "Número de puestos en la estación", example = "20")
     private int puestos;
-
-    public EstacionDTO(String id, String nombre, int puestos) {
-        this.id = id;
-        this.nombre = nombre;
-        this.puestos = puestos;
-    }
-
-
-    @Override
-    public String getId() {
-        return this.id;
-    }
-
-    @Override
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public int getPuestos() {
-        return puestos;
-    }
-
-    public void setPuestos(int puestos) {
-        this.puestos = puestos;
-    }
 }
