@@ -174,6 +174,9 @@ public class ServicioEstaciones implements IServicioEstaciones {
                 if(bicicletaOptional.isPresent()){
                     Bicicleta bicicleta = bicicletaOptional.get();
                     estacion.addBicicleta(bicicleta);
+                    bicicleta.setEstacionActual(estacion);
+                    repositorioBicicletas.save(bicicleta);
+                    repositorioEstaciones.save(estacion);
                 }
             }
         }

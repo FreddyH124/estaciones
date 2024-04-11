@@ -30,6 +30,8 @@ public class SecurityConfiguration {
             .authorizeHttpRequests()
             .antMatchers("/auth/**")
             .permitAll()
+            .antMatchers("/estaciones/estacionar")
+            .permitAll()
             .anyRequest()
             .authenticated()
             .and()

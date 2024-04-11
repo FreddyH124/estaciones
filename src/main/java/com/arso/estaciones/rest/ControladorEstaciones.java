@@ -124,9 +124,9 @@ public class ControladorEstaciones {
         });
     }
 
-    @PreAuthorize("hasAnyAuthority('GESTOR','NORMAL')")
+    //@PreAuthorize("hasAnyAuthority('GESTOR','NORMAL')")
     @PostMapping("/estacionar")
-    ResponseEntity<Void> estacionar(@RequestBody EstacionarBicicletaDTO dto) {
+    public ResponseEntity<Void> estacionar(@RequestBody EstacionarBicicletaDTO dto) {
         servicioEstaciones.estacionarBicicleta(dto);
         return ResponseEntity.ok().build();
     }
