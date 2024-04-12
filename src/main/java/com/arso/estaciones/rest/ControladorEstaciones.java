@@ -179,11 +179,10 @@ public class ControladorEstaciones {
             summary = "Retirar bicicleta",
             description = "Retira una bicicleta de la estación especificada"
     )
-    @PostMapping("/{idEstacion}/bicicletas/retirar/{idBicicleta}")
+    @PostMapping("/bicicletas/retirar/{idBicicleta}")
     public ResponseEntity<Void> retirar(
-            @Parameter(description = "ID de la estación", example = "6616cee50a78571ff80a8ff3") @PathVariable String idEstacion,
-            @Parameter(description = "ID de la estación", example = "6616cee50a78571ff80a8ff3") @PathVariable String idBicicleta) {
-        servicioEstaciones.retirarBicicleta(idEstacion, idBicicleta);
+            @Parameter(description = "ID de la bicicleta", example = "6616cee50a78571ff80a8ff3") @PathVariable String idBicicleta) {
+        servicioEstaciones.retirarBicicleta(idBicicleta);
         return ResponseEntity.ok().build();
     }
 

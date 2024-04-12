@@ -24,5 +24,5 @@ public interface IServicioEstaciones {
 
     void estacionarBicicleta(EstacionarBicicletaDTO dto);
 
-    void retirarBicicleta(String idEstacion, String idBicicleta);
+    void retirarBicicleta(String idBicicleta);
 }

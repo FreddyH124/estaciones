@@ -140,21 +140,18 @@ public class ServicioEstaciones implements IServicioEstaciones {
     }
 
     @Override
-    public void retirarBicicleta(String idEstacion, String idBicicleta) {
-        Optional<Estacion> estacionOptional = repositorioEstaciones.findById(idEstacion);
-        if(estacionOptional.isPresent()){
-            Estacion estacion = estacionOptional.get();
-            if(estacion.hayHueco()){
-                Optional<Bicicleta> bicicletaOptional = repositorioBicicletas.findById(idBicicleta);
-                if(bicicletaOptional.isPresent()){
-                    Bicicleta bicicleta = bicicletaOptional.get();
-                    estacion.removeBicicleta(bicicleta);
-                    bicicleta.setEstacionActual(null);
-                    bicicleta.setDisponible(false);
-                    repositorioBicicletas.save(bicicleta);
-                    repositorioEstaciones.save(estacion);
-                }
-            }
+    public void retirarBicicleta(String idBicicleta) {
+        Optional<Bicicleta> bicicletaOptional = repositorioBicicletas.findById(idBicicleta);
+        if(bicicletaOptional.isPresent()){
+            Bicicleta bicicleta = bicicletaOptional.get();
+            Estacion estacion = bicicleta.getEstacionActual();
+
+            estacion.removeBicicleta(bicicleta);
+            bicicleta.setEstacionActual(null);
+            bicicleta.setDisponible(false);
+            repositorioBicicletas.save(bicicleta);
+            repositorioEstaciones.save(estacion);
         }
+
     }
 }

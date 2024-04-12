@@ -32,7 +32,7 @@ public class SecurityConfiguration {
             .permitAll()
             .antMatchers("/estaciones/estacionar")
             .permitAll()
-            .antMatchers("/estaciones/{idEstacion}/bicicletas/retirar/{idBicicleta}")
+            .antMatchers("/estaciones/bicicletas/retirar/{idBicicleta}")
             .permitAll()
             .antMatchers("/swagger-ui.html", "/swagger-ui/**", "/v3/api-docs/**")
             .permitAll()
