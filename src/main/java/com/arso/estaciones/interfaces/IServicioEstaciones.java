@@ -23,4 +23,6 @@ public interface IServicioEstaciones {
     Page<BicicletaDTO> getBicicletasDisponibles(String idEstacion, Pageable pageable);
 
     void estacionarBicicleta(EstacionarBicicletaDTO dto);
+
+    void retirarBicicleta(String idEstacion, String idBicicleta);
 }

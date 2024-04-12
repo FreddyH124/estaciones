@@ -104,7 +104,6 @@ public class Estacion implements IIdentificable {
         }
     }
 
-
     public void removeBicicleta(Bicicleta bicicleta) {
         bicicletas.removeIf(b -> b.getId().equals(bicicleta.getId()));
     }

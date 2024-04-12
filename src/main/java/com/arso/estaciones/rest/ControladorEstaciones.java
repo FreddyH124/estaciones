@@ -12,7 +12,6 @@ import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.PagedModel;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -173,6 +172,18 @@ public class ControladorEstaciones {
     @PostMapping("/estacionar")
     public ResponseEntity<Void> estacionar(@Valid @RequestBody EstacionarBicicletaDTO dto) {
         servicioEstaciones.estacionarBicicleta(dto);
+        return ResponseEntity.ok().build();
+    }
+
+    @Operation(
+            summary = "Retirar bicicleta",
+            description = "Retira una bicicleta de la estación especificada"
+    )
+    @PostMapping("/{idEstacion}/bicicletas/retirar/{idBicicleta}")
+    public ResponseEntity<Void> retirar(
+            @Parameter(description = "ID de la estación", example = "6616cee50a78571ff80a8ff3") @PathVariable String idEstacion,
+            @Parameter(description = "ID de la estación", example = "6616cee50a78571ff80a8ff3") @PathVariable String idBicicleta) {
+        servicioEstaciones.retirarBicicleta(idEstacion, idBicicleta);
         return ResponseEntity.ok().build();
     }
 
