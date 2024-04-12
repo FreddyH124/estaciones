@@ -1,5 +1,8 @@
 package com.arso.estaciones.service;
 
+import com.arso.estaciones.EstacionesApplication;
+import com.arso.estaciones.communication.Evento;
+import com.arso.estaciones.communication.PublicadorEventos;
 import com.arso.estaciones.interfaces.IServicioEstaciones;
 import com.arso.estaciones.model.Bicicleta;
 import com.arso.estaciones.model.Coordenada;
@@ -8,12 +11,15 @@ import com.arso.estaciones.model.Estacion;
 import com.arso.estaciones.repository.RepositorioBicicletas;
 import com.arso.estaciones.repository.RepositorioEstaciones;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -69,6 +75,12 @@ public class ServicioEstaciones implements IServicioEstaciones {
             bicicleta.darDeBaja(motivo);
             repositorioBicicletas.save(bicicleta);
         }
+        
+        //Creamos el evento
+        Evento evento = new Evento("bicicleta-desactivada", LocalDateTime.now(), idBicicleta);
+        ConfigurableApplicationContext context = SpringApplication.run(EstacionesApplication.class);
+        PublicadorEventos publicador = context.getBean(PublicadorEventos.class);
+        publicador.sendMessage(evento);
     }
 
     @Override
