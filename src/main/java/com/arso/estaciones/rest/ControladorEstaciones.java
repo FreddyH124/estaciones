@@ -168,7 +168,6 @@ public class ControladorEstaciones {
             summary = "Estacionar bicicleta",
             description = "Estaciona una bicicleta en la estación especificada."
     )
-    //@PreAuthorize("hasAnyAuthority('GESTOR','NORMAL')")
     @PostMapping("/estacionar")
     public ResponseEntity<Void> estacionar(@Valid @RequestBody EstacionarBicicletaDTO dto) {
         servicioEstaciones.estacionarBicicleta(dto);
