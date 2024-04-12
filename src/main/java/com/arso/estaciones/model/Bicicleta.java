@@ -26,7 +26,7 @@ public class Bicicleta implements IIdentificable {
     private Date fechaDeAlta;
     private Date fechaDeBaja;
     private String modelo;
-    @DBRef
+    @DBRef(lazy = true)
     private Estacion estacionActual;
     private String motivoBaja;
     //private Map<String, Incidencia> incidencias;
