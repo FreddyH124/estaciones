@@ -1,8 +1,9 @@
 package com.arso.estaciones.communication;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Evento {
+public class Evento implements Serializable {
 	
 	private String tipo;
 	private String idBicicleta;
