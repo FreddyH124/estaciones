@@ -29,7 +29,7 @@ public class ConsumidorEventos implements IConsumidorEventos{
     private ObjectMapper objectMapper;
 	
 	@Override
-	@RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
+	//@RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
 	public void handleEvent(Message mensaje) throws StreamReadException, DatabindException, IOException {
 		byte[] cuerpo = mensaje.getBody();
 
