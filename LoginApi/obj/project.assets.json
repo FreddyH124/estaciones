@@ -1643,11 +1643,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\estaciones\\LoginApi\\LoginApi.csproj",
+      "projectUniqueName": "C:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\LoginApi.csproj",
       "projectName": "LoginApi",
-      "projectPath": "C:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\estaciones\\LoginApi\\LoginApi.csproj",
+      "projectPath": "C:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\LoginApi.csproj",
       "packagesPath": "C:\\Users\\herna\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\estaciones\\LoginApi\\obj\\",
+      "outputPath": "C:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "E:\\VStudio\\COMPONENTS\\NuGetPackages"
