@@ -1,0 +1,5 @@
+zuul:
+  routes:
+    users:
+      path: /users/**
+      url: https://localhost:7073/Users

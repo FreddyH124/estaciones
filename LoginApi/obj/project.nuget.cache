@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "oA36ED0WWyzyAQs2tKl1r35pxxGUJy4Vvhm00twLhdWhlf0X800K/KHm0syXmlTW8H8c/BYgoSE+WJ6IhEByeA==",
+  "dgSpecHash": "w6/QG/wUFB+55Jrywe2EMp8q6L6/bC0xssMwXYylXApOGhuACw9nEaJHeJkvKPMw0g1FY3qo/1NA/W97Z5wqvQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\LoginApi.csproj",
+  "projectFilePath": "c:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\LoginApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\herna\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\herna\\.nuget\\packages\\awssdk.core\\3.7.100.14\\awssdk.core.3.7.100.14.nupkg.sha512",
