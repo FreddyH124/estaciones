@@ -5,10 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22ce43c3-e489-4376-a13d-52e70729c0f9" name="Changes" comment="Añadido todo el soporte JPA">
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.assets.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/LoginApi.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/LoginApi.csproj.nuget.dgspec.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/project.nuget.cache" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/arso/interfaces/services/IServicioAlquileres.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/arso/interfaces/services/IServicioAlquileres.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/arso/tests/ProgramEjercicio2.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/arso/tests/ProgramEjercicio2.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,8 +32,20 @@
         <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;FreddyH124&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/FreddyH124/mircoserviciosARSO.git&quot;,
+    &quot;accountId&quot;: &quot;83a96692-a8d4-4a77-bf2f-0cc1654fe9d9&quot;
+  }
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 3
@@ -48,13 +63,14 @@
     "Maven. [org.apache.maven.plugins:maven-archetype-plugin:RELEASE:generate].executor": "Run",
     "Maven.alquileres [clean].executor": "Run",
     "Maven.alquileres [install].executor": "Run",
+    "Maven.alquileres [org.eclipse.jetty:jetty-maven-plugin:10.0.18:run].executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "soporteJPA.mergeTokenJWT",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/herna/OneDrive/Escritorio/EnOneDrive/UNIVERSIDAD/UNIVERSIDAD23-24/ARSO/alquileres/src/main/resources",
+    "last_opened_file_path": "C:/Users/herna/OneDrive/Escritorio/EnOneDrive/UNIVERSIDAD/UNIVERSIDAD23-24/ARSO/mircoserviciosARSO/pasarela",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -117,8 +133,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-1.8.0_392-corretto-1.8.0_392-3183f394aec4-cb300fc7" />
-        <option value="jdk-11.0.22-corretto-11.0.22-4caba194b151-868cef46" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
+        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
       </set>
     </attachedChunks>
   </component>
@@ -141,6 +157,8 @@
       <workItem from="1709748559381" duration="5769000" />
       <workItem from="1709836036955" duration="814000" />
       <workItem from="1709980140067" duration="1827000" />
+      <workItem from="1714813128474" duration="372000" />
+      <workItem from="1714813816257" duration="19000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
