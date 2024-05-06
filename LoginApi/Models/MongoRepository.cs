@@ -9,12 +9,10 @@ public abstract class MongoRepository<T> : Repositorio<T, string> where T : IIde
     private string _connectionString { get; set; }
     private IMongoCollection<T> _collection;
     private MongoClient _client;
-    //private IMongoDatabase _dataBase;
 
     public MongoRepository(){
         _connectionString = "mongodb+srv://freddy:Abril1204@cluster.bfkjqaz.mongodb.net/dbUsersNET?retryWrites=true&w=majority";
         _client = new MongoClient(_connectionString);
-        //_dataBase = _client.GetDatabase(GetCollectionName());
         _collection = GetCollection();
 
     }

@@ -13,7 +13,7 @@ public interface IUserService{
     public User GetById(string id);
     public List<User> GetAll();
     public void UserSignUp(SignUpRequest request);
-    public SignInResponse UserSignIn(SignInRequest request);
+    //public SignInResponse UserSignIn(SignInRequest request);
     public void Unsubscribe(string id);
     public IDictionary<string,object> VerifyUser(SignInRequest credentials);
 }
@@ -58,14 +58,6 @@ public class UserService : IUserService
         }
 
         
-    }
-
-    public SignInResponse UserSignIn(SignInRequest request){
-        IDictionary<string, object> claims = VerifyUser(request);
-        var token = _jwtUtils.GenerateToken(claims);
-        var response = new SignInResponse();
-        response.Token = token;
-        return response;
     }
 
     public void Unsubscribe(string id) 

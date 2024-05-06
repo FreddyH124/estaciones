@@ -43,9 +43,6 @@ if (app.Environment.IsDevelopment())
     // global error handler
     app.UseMiddleware<ErrorHandlerMiddleware>();
 
-    // custom jwt auth middleware
-    app.UseMiddleware<JwtMiddleware>();
-
     app.UseHttpsRedirection();
 
     app.UseAuthorization();

@@ -9,7 +9,6 @@ using System.Security.Claims;
 namespace WebApi.Authorization;
 
 public interface IJwtUtils{
-    //public string GenerateToken(User user);
     public string GenerateToken(IDictionary<string,object> claims);
     public string GenerateSignUpCodeToken(string user);
     public string? ValidateToken(string token);
@@ -22,19 +21,6 @@ public class JwtUtils : IJwtUtils{
     public JwtUtils(IOptions<AppSettings> appSettings){
         _appSettings = appSettings.Value;
     }
-
-    /* public string GenerateToken(User user){
-        var tokenHandler = new JwtSecurityTokenHandler();
-        var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
-        var tokenDescriptor = new SecurityTokenDescriptor {
-            Subject = new ClaimsIdentity(new [] { new Claim("id", user.Id.ToString()) }),
-            Expires = DateTime.UtcNow.AddDays(7),
-            SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
-        };
-
-        var token = tokenHandler.CreateToken(tokenDescriptor);
-        return tokenHandler.WriteToken(token);
-    } */
 
     public string GenerateToken(IDictionary<string,object> claims){
         var tokenHandler = new JwtSecurityTokenHandler();
