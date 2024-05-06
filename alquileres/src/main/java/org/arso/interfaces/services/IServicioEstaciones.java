@@ -8,5 +8,5 @@ import org.arso.services.ServicioAlquileresException;
 
 public interface IServicioEstaciones {
 
-    void estacionarBicicleta(EstacionarBicicletaDTO estacionarBicicleta) throws ServicioAlquileresException, IOException;
+    void estacionarBicicleta(EstacionarBicicletaDTO estacionarBicicleta) throws ServicioAlquileresException, IOException, Exception;
 }

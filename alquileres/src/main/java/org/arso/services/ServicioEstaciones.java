@@ -1,7 +1,5 @@
 package org.arso.services;
 
-import java.io.IOException;
-
 import org.arso.communication.retrofit.EstacionesRestClient;
 import org.arso.communication.retrofit.estaciones.model.EstacionarBicicletaDTO;
 import org.arso.interfaces.services.IServicioEstaciones;
@@ -14,7 +12,7 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 
 public class ServicioEstaciones implements IServicioEstaciones {
     @Override
-    public void estacionarBicicleta(EstacionarBicicletaDTO estacionarBici) throws ServicioAlquileresException, IOException{
+    public void estacionarBicicleta(EstacionarBicicletaDTO estacionarBici) throws Exception{
         
     	Retrofit retrofit = new Retrofit.Builder().baseUrl("http://localhost:8080")
 				.addConverterFactory(JacksonConverterFactory.create()).build();
@@ -24,6 +22,9 @@ public class ServicioEstaciones implements IServicioEstaciones {
 		Call<Void> call = service.estacionarBicicleta(estacionarBici);
 
 		Response<Void> response = call.execute();
-
+		
+		if(!response.isSuccessful() || (response.body() == null)) {
+			throw new Exception("No se ha podido estacionar la bicicleta");
+		}
     }
 }
