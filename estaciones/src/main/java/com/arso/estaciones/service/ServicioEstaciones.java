@@ -10,6 +10,9 @@ import com.arso.estaciones.model.DTO.*;
 import com.arso.estaciones.model.Estacion;
 import com.arso.estaciones.repository.RepositorioBicicletas;
 import com.arso.estaciones.repository.RepositorioEstaciones;
+
+import org.apache.catalina.core.ApplicationContext;
+import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -29,6 +32,8 @@ import java.util.stream.Collectors;
 public class ServicioEstaciones implements IServicioEstaciones {
     private RepositorioEstaciones repositorioEstaciones;
     private RepositorioBicicletas repositorioBicicletas;
+    @Autowired
+    private ApplicationContext context;
 
     @Autowired
     public ServicioEstaciones(RepositorioEstaciones repositorioEstaciones, RepositorioBicicletas repositorioBicicletas){
@@ -78,8 +83,7 @@ public class ServicioEstaciones implements IServicioEstaciones {
         
         //Creamos el evento
         Evento evento = new Evento("bicicleta-desactivada", LocalDateTime.now(), idBicicleta);
-        ConfigurableApplicationContext context = SpringApplication.run(EstacionesApplication.class);
-        PublicadorEventos publicador = context.getBean(PublicadorEventos.class);
+        PublicadorEventos publicador = ((BeanFactory) context).getBean(PublicadorEventos.class);
         publicador.sendMessage(evento);
     }
 

@@ -20,7 +20,7 @@ public class PublicadorEventos implements IPublicadorEventos {
 		String routingKey = "arso";
 
 		channel.basicPublish("amq.topic", routingKey, new AMQP.BasicProperties.Builder()
-				// .contentType("application/json")
+				.contentType("application/json")
 				.build(), evento.getTipo().getBytes());
 		channel.close();
 		connection.close();

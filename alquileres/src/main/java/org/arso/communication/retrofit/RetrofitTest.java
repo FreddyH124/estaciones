@@ -30,7 +30,7 @@ class RetrofitTest {
 				System.out.println("mal");
 			}
 		} catch (IOException ex) {
-			System.out.println("e");
+			System.out.println("IO exception");
 		}
 
 		System.out.println("fin. ");
