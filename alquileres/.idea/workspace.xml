@@ -5,13 +5,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22ce43c3-e489-4376-a13d-52e70729c0f9" name="Changes" comment="Añadido todo el soporte JPA">
+      <change afterPath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/Controllers/UsersController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/Controllers/UsersController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/bin/Debug/net6.0/LoginApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/bin/Debug/net6.0/LoginApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/bin/Debug/net6.0/LoginApi.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/bin/Debug/net6.0/LoginApi.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/bin/Debug/net6.0/LoginApi.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/bin/Debug/net6.0/LoginApi.pdb" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfo.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.GeneratedMSBuildEditorConfig.editorconfig" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.GeneratedMSBuildEditorConfig.editorconfig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.assets.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.assets.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/LoginApi.csproj.nuget.dgspec.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/LoginApi.csproj.nuget.dgspec.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/project.nuget.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/project.nuget.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.pdb" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.pdb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.sourcelink.json" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.sourcelink.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/apphost.exe" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/apphost.exe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/ref/LoginApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/ref/LoginApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/refint/LoginApi.dll" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/refint/LoginApi.dll" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pasarela/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../pasarela/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/PasarelaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/PasarelaApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/rest/ControladorPasarela.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/rest/ControladorPasarela.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pasarela/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../pasarela/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pasarela/src/main/resources/application.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pasarela/src/test/java/com/arso/pasarela/PasarelaApplicationTests.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +82,7 @@
     "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/herna/OneDrive/Escritorio/EnOneDrive/UNIVERSIDAD/UNIVERSIDAD23-24/ARSO/mircoserviciosARSO/pasarela",
+    "last_opened_file_path": "C:/Users/herna/OneDrive/Escritorio/EnOneDrive/UNIVERSIDAD/UNIVERSIDAD23-24/ARSO/mircoserviciosARSO/estaciones",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -159,6 +171,7 @@
       <workItem from="1709980140067" duration="1827000" />
       <workItem from="1714813128474" duration="372000" />
       <workItem from="1714813816257" duration="19000" />
+      <workItem from="1715010043409" duration="642000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />
