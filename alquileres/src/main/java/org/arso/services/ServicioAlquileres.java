@@ -15,6 +15,7 @@ import org.arso.repository.*;
 import org.arso.factory.FactoriaServicios;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -113,7 +114,7 @@ public class ServicioAlquileres implements IServicioAlquileres {
         }
         
         //Se crea el evento y se envia
-        Evento evento = new Evento("bicicleta-alquilada", LocalDateTime.now(), idBicicleta);
+        Evento evento = new Evento("bicicleta-alquilada", new Date(), idBicicleta, "");
         publicador.publicarEvento(evento);
         
     }
@@ -151,7 +152,7 @@ public class ServicioAlquileres implements IServicioAlquileres {
         }
         
       //Se crea el evento y se envia
-        Evento evento = new Evento("bicicleta-alquiler-concluido", LocalDateTime.now(), bicicleta.getId());
+        Evento evento = new Evento("bicicleta-alquiler-concluido", new Date(), bicicleta.getId(), idEstacion);
         publicador.publicarEvento(evento);
     }
 
@@ -173,5 +174,26 @@ public class ServicioAlquileres implements IServicioAlquileres {
         } catch (EntidadNoEncontrada e) {
             throw new RuntimeException(e);
         }
+    }
+    
+    public void eliminarReserva(String idBicicleta) throws RepositorioException {
+    	if(idBicicleta == null) throw new IllegalArgumentException("idBicicleta vacío");
+    	
+    	List<Usuario> resultado = repositorio.buscarUsuariosPorBicicletaId(idBicicleta);
+    	
+    	if(resultado == null) throw new RepositorioException("no se han encontrado reservas");
+    	
+    	int index = 0;
+    	
+    	for (Usuario usuario : resultado) {
+			if(usuario.getReservaActiva().getIdBicicleta().equals(idBicicleta))
+				index = resultado.indexOf(usuario);
+		}
+    	
+    	Usuario usuario = resultado.get(index);
+    	
+    	Reserva reserva = usuario.getReservaActiva();
+    	
+    	usuario.getReservas().remove(reserva);
     }
 }

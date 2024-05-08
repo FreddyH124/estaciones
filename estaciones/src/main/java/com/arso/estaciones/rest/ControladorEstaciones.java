@@ -2,6 +2,8 @@ package com.arso.estaciones.rest;
 
 import com.arso.estaciones.interfaces.IServicioEstaciones;
 import com.arso.estaciones.model.DTO.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -71,7 +73,7 @@ public class ControladorEstaciones {
     @PostMapping("/bicicletas/{id}/baja")
     public ResponseEntity<Void> bajaBicicleta(
             @Parameter(description = "ID de la bicicleta", example = "660ee344ef8055670e95a1bb") @PathVariable String id,
-            @Parameter(description = "Motivo de la baja", example = "Mantenimiento") @RequestParam String motivo) {
+            @Parameter(description = "Motivo de la baja", example = "Mantenimiento") @RequestParam String motivo) throws JsonProcessingException {
 
         servicioEstaciones.bajaBicicleta(id, motivo);
         return ResponseEntity.ok().build();

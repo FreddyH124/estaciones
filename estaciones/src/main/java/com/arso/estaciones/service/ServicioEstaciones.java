@@ -10,6 +10,9 @@ import com.arso.estaciones.model.DTO.*;
 import com.arso.estaciones.model.Estacion;
 import com.arso.estaciones.repository.RepositorioBicicletas;
 import com.arso.estaciones.repository.RepositorioEstaciones;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
 import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.BeanFactory;
@@ -23,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -33,7 +37,7 @@ public class ServicioEstaciones implements IServicioEstaciones {
     private RepositorioEstaciones repositorioEstaciones;
     private RepositorioBicicletas repositorioBicicletas;
     @Autowired
-    private ApplicationContext context;
+    private PublicadorEventos publicador;
 
     @Autowired
     public ServicioEstaciones(RepositorioEstaciones repositorioEstaciones, RepositorioBicicletas repositorioBicicletas){
@@ -67,7 +71,7 @@ public class ServicioEstaciones implements IServicioEstaciones {
     }
 
     @Override
-    public void bajaBicicleta(String idBicicleta, String motivo) {
+    public void bajaBicicleta(String idBicicleta, String motivo) throws JsonProcessingException {
 
         if(idBicicleta == null || idBicicleta.isEmpty()){
             throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
@@ -82,9 +86,10 @@ public class ServicioEstaciones implements IServicioEstaciones {
         }
         
         //Creamos el evento
-        Evento evento = new Evento("bicicleta-desactivada", LocalDateTime.now(), idBicicleta);
-        PublicadorEventos publicador = ((BeanFactory) context).getBean(PublicadorEventos.class);
-        publicador.sendMessage(evento);
+        Evento evento = new Evento("bicicleta-desactivada", new Date(), idBicicleta, "");
+        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		String json = ow.writeValueAsString(evento);
+        publicador.sendMessage(json);
     }
 
     @Override

@@ -31,7 +31,6 @@ public class ControladorRest {
 	@Context
 	private HttpServletRequest servletRequest;
 	
-	//Poner @PermitAll en el servicio de login
 	//http://localhost:8080/api/alquileres/1
 	
 	@GET

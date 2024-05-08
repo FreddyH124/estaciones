@@ -1,5 +1,7 @@
 package org.arso.communication;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -18,10 +20,13 @@ public class PublicadorEventos implements IPublicadorEventos {
 		Channel channel = connection.createChannel();
 
 		String routingKey = "arso";
+		
+		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+		String json = ow.writeValueAsString(evento);
 
 		channel.basicPublish("amq.topic", routingKey, new AMQP.BasicProperties.Builder()
 				.contentType("application/json")
-				.build(), evento.getTipo().getBytes());
+				.build(), json.getBytes());
 		channel.close();
 		connection.close();
 

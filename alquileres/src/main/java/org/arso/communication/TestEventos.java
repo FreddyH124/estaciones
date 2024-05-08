@@ -3,6 +3,7 @@ package org.arso.communication;
 import java.io.IOException;
 import java.util.Map;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.rabbitmq.client.AMQP;
 import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
@@ -12,6 +13,7 @@ import com.rabbitmq.client.Envelope;
 
 public class TestEventos {
 
+	
 	public static void main(String[] args) throws Exception {
 		ConnectionFactory factory = new ConnectionFactory(); //Prueba
 		factory.setUri("amqps://hazguuiy:sxBSsDOJonJWPEdeSN5IlJ2Ck0cl_WUK@stingray.rmq.cloudamqp.com/hazguuiy");
@@ -39,6 +41,8 @@ public class TestEventos {
 		boolean autoAck = false;
 		String etiquetaConsumidor = "alquileres-consumidor";
 		
+		ObjectMapper mapper = new ObjectMapper();
+		
 		
 		channel.basicConsume(queueName, autoAck, etiquetaConsumidor, new DefaultConsumer(channel) {
 			@Override
@@ -50,12 +54,19 @@ public class TestEventos {
 				long deliveryTag = envelope.getDeliveryTag();
 				
 				String contenido = new String(body);
-				System.out.println(contenido);
+				
+				Evento evento = mapper.readValue(contenido, Evento.class);
+				
+				System.out.println(evento.getIdBicicleta());
+			    
+				
 				
 				// Confirma el procesamiento
 				channel.basicAck(deliveryTag, false);
 			}
 		});
+		
+		System.out.println("Escuchando en alquileres...");
 		
 	}
 

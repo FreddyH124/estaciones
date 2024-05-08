@@ -14,7 +14,7 @@ import java.util.List;
 public abstract class RepositorioJPA<T extends IIdentificable, K extends IIdentificable> implements IRepositorioString<T> {
 
     @PersistenceContext
-    private EntityManager entityManager;
+	protected EntityManager entityManager;
 
     @Override
     public String add(T entity) throws RepositorioException {

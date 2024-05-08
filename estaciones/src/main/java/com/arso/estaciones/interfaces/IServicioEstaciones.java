@@ -1,6 +1,8 @@
 package com.arso.estaciones.interfaces;
 
 import com.arso.estaciones.model.DTO.*;
+import com.fasterxml.jackson.core.JsonProcessingException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -10,7 +12,7 @@ public interface IServicioEstaciones {
 
     String altaBicicleta(AltaBicicletaDTO dto);
 
-    void bajaBicicleta(String idBicicleta, String motivo);
+    void bajaBicicleta(String idBicicleta, String motivo) throws JsonProcessingException;
 
     Page<BicicletaDTO> getAllBiciletas(String idEstacion, Pageable pageable);
 

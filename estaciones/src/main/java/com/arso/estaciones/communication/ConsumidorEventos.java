@@ -29,7 +29,7 @@ public class ConsumidorEventos implements IConsumidorEventos{
     private ObjectMapper objectMapper;
 	
 	@Override
-	//@RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
+	@RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
 	public void handleEvent(Message mensaje) throws StreamReadException, DatabindException, IOException {
 		byte[] cuerpo = mensaje.getBody();
 
@@ -38,14 +38,13 @@ public class ConsumidorEventos implements IConsumidorEventos{
         
         ConfigurableApplicationContext context = SpringApplication.run(EstacionesApplication.class);
         IServicioEstaciones servicio = context.getBean(IServicioEstaciones.class);
-        
-        System.out.println("Tipo del evento: "+ evento.getTipo());
-        
+                
         if (evento.getTipo().equals(bici_Alquilada)) {
 			servicio.retirarBicicleta(evento.getIdBicicleta());
 		}
-        else if (evento.getTipo().equals(bici_Alquiler_Concluido)) { //Id hardcodeado por duda
-        	EstacionarBicicletaDTO dto = new EstacionarBicicletaDTO("661980bb46b9b4732c1b2e47", evento.getIdBicicleta());
+        else if (evento.getTipo().equals(bici_Alquiler_Concluido)) {
+        	
+        	EstacionarBicicletaDTO dto = new EstacionarBicicletaDTO(evento.getIdEstacion(), evento.getIdBicicleta());
         	servicio.estacionarBicicleta(dto);
         }
 		
