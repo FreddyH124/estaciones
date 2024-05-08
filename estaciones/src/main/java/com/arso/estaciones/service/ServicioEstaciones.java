@@ -3,6 +3,8 @@ package com.arso.estaciones.service;
 import com.arso.estaciones.EstacionesApplication;
 import com.arso.estaciones.communication.Evento;
 import com.arso.estaciones.communication.PublicadorEventos;
+import com.arso.estaciones.interfaces.IRepositorioBicicletas;
+import com.arso.estaciones.interfaces.IRepositorioEstaciones;
 import com.arso.estaciones.interfaces.IServicioEstaciones;
 import com.arso.estaciones.model.Bicicleta;
 import com.arso.estaciones.model.Coordenada;
@@ -14,6 +16,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
 
+import com.arso.estaciones.repository.EntidadNoEncontrada;
 import org.apache.catalina.core.ApplicationContext;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,13 +37,14 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 public class ServicioEstaciones implements IServicioEstaciones {
-    private RepositorioEstaciones repositorioEstaciones;
-    private RepositorioBicicletas repositorioBicicletas;
+    private IRepositorioEstaciones repositorioEstaciones;
+    private IRepositorioBicicletas repositorioBicicletas;
+
     @Autowired
     private PublicadorEventos publicador;
 
     @Autowired
-    public ServicioEstaciones(RepositorioEstaciones repositorioEstaciones, RepositorioBicicletas repositorioBicicletas){
+    public ServicioEstaciones(IRepositorioEstaciones repositorioEstaciones, IRepositorioBicicletas repositorioBicicletas){
         this.repositorioEstaciones = repositorioEstaciones;
         this.repositorioBicicletas = repositorioBicicletas;
     }
@@ -54,7 +58,7 @@ public class ServicioEstaciones implements IServicioEstaciones {
     }
 
     @Override
-    public String altaBicicleta(AltaBicicletaDTO dto) {
+    public String altaBicicleta(AltaBicicletaDTO dto) throws EntidadNoEncontrada {
         Optional<Estacion> estacionOptional = repositorioEstaciones.findById(dto.getIdEstacion());
         if(estacionOptional.isPresent()){
             Estacion estacion = estacionOptional.get();
@@ -66,12 +70,14 @@ public class ServicioEstaciones implements IServicioEstaciones {
                 repositorioEstaciones.save(estacion);
                 return bicicleta.getId();
             }
+        }else{
+            throw new EntidadNoEncontrada("La bicicleta: " + dto.getIdEstacion() + " no se encuentra en la BBDD");
         }
         return null;
     }
 
     @Override
-    public void bajaBicicleta(String idBicicleta, String motivo) throws JsonProcessingException {
+    public void bajaBicicleta(String idBicicleta, String motivo) throws EntidadNoEncontrada,JsonProcessingException {
 
         if(idBicicleta == null || idBicicleta.isEmpty()){
             throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
@@ -83,6 +89,8 @@ public class ServicioEstaciones implements IServicioEstaciones {
             Bicicleta bicicleta = bicicletaOptional.get();
             bicicleta.darDeBaja(motivo);
             repositorioBicicletas.save(bicicleta);
+        }else{
+            throw new EntidadNoEncontrada("La bicicleta: " + idBicicleta + " no se encuentra en la BBDD");
         }
         
         //Creamos el evento
@@ -93,28 +101,22 @@ public class ServicioEstaciones implements IServicioEstaciones {
     }
 
     @Override
-    public Page<BicicletaDTO> getAllBiciletas(String idEstacion, Pageable pageable) {
+    public Page<Bicicleta> getAllBiciletas(String idEstacion, Pageable pageable) {
 
         if(idEstacion == null || idEstacion.isEmpty()){
             throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
         }
 
-        return repositorioBicicletas.findByEstacionActualId(idEstacion, pageable).map(bicicleta -> {
-            BicicletaDTO dto =DTOHelper.fromEntity(bicicleta);
-            return dto;
-        });
+        return repositorioBicicletas.findByEstacionActualId(idEstacion, pageable);
     }
 
     @Override
-    public Page<EstacionDTO> getAllEstaciones(Pageable pageable) {
-        return repositorioEstaciones.findAll(pageable).map(estacion -> {
-            EstacionDTO dto =DTOHelper.fromEntity(estacion);
-            return dto;
-        });
+    public Page<Estacion> getAllEstaciones(Pageable pageable) {
+        return repositorioEstaciones.findAll(pageable);
     }
 
     @Override
-    public EstacionDTO getEstacion(String idEstacion) {
+    public Estacion getEstacion(String idEstacion) throws EntidadNoEncontrada {
 
         if(idEstacion == null || idEstacion.isEmpty()){
             throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
@@ -122,27 +124,24 @@ public class ServicioEstaciones implements IServicioEstaciones {
 
         Optional<Estacion> estacionOptional = repositorioEstaciones.findById(idEstacion);
         if(estacionOptional.isPresent()){
-            Estacion estacion = estacionOptional.get();
-            return DTOHelper.fromEntity(estacion);
+            return estacionOptional.get();
+        }else{
+            throw new EntidadNoEncontrada("La estacion: " + idEstacion + " no se encuentra en la BBDD");
         }
-        return null;
     }
 
     @Override
-    public Page<BicicletaDTO> getBicicletasDisponibles(String idEstacion, Pageable pageable) {
+    public Page<Bicicleta> getBicicletasDisponibles(String idEstacion, Pageable pageable) {
 
         if(idEstacion == null || idEstacion.isEmpty()){
             throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
         }
 
-        return repositorioBicicletas.findByDisponibleAndEstacionActualId(idEstacion, pageable).map(bicicleta -> {
-            BicicletaDTO dto =DTOHelper.fromEntity(bicicleta);
-            return dto;
-        });
+        return repositorioBicicletas.findByDisponibleAndEstacionActualId(idEstacion, pageable);
     }
 
     @Override
-    public void estacionarBicicleta(EstacionarBicicletaDTO dto) {
+    public void estacionarBicicleta(EstacionarBicicletaDTO dto) throws EntidadNoEncontrada {
         Optional<Estacion> estacionOptional = repositorioEstaciones.findById(dto.getIdEstacion());
         if(estacionOptional.isPresent()){
             Estacion estacion = estacionOptional.get();
@@ -155,13 +154,23 @@ public class ServicioEstaciones implements IServicioEstaciones {
                     bicicleta.setDisponible(true);
                     repositorioBicicletas.save(bicicleta);
                     repositorioEstaciones.save(estacion);
+                }else{
+                    throw new EntidadNoEncontrada("La bicicleta: " + dto.getIdBicicleta() + " no se encuentra en la BBDD");
                 }
+            }else{
+                throw new IllegalArgumentException("No hay hueco en la estacion");
             }
+        }else{
+            throw new EntidadNoEncontrada("La estacion: " + dto.getIdEstacion() + " no se encuentra en la BBDD");
         }
     }
 
     @Override
-    public void retirarBicicleta(String idBicicleta) {
+    public void retirarBicicleta(String idBicicleta) throws EntidadNoEncontrada {
+        if(idBicicleta == null || idBicicleta.isEmpty()){
+            throw new IllegalArgumentException("id: no debe ser nulo ni vacio");
+        }
+
         Optional<Bicicleta> bicicletaOptional = repositorioBicicletas.findById(idBicicleta);
         if(bicicletaOptional.isPresent()){
             Bicicleta bicicleta = bicicletaOptional.get();
@@ -172,6 +181,8 @@ public class ServicioEstaciones implements IServicioEstaciones {
             bicicleta.setDisponible(false);
             repositorioBicicletas.save(bicicleta);
             repositorioEstaciones.save(estacion);
+        }else{
+            throw new EntidadNoEncontrada("La bicicleta: " + idBicicleta + " no se encuentra en la BBDD");
         }
 
     }

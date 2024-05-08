@@ -2,6 +2,7 @@ package com.arso.estaciones.communication;
 
 import java.io.IOException;
 
+import com.arso.estaciones.repository.EntidadNoEncontrada;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,17 +28,17 @@ public class ConsumidorEventos implements IConsumidorEventos{
 	
 	@Autowired
     private ObjectMapper objectMapper;
+
+	@Autowired
+	IServicioEstaciones servicio;
 	
 	@Override
 	@RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
-	public void handleEvent(Message mensaje) throws StreamReadException, DatabindException, IOException {
+	public void handleEvent(Message mensaje) throws StreamReadException, DatabindException, IOException, EntidadNoEncontrada {
 		byte[] cuerpo = mensaje.getBody();
 
         // Deserializar el cuerpo del mensaje a un objeto de tipo Evento
         Evento evento = objectMapper.readValue(cuerpo, Evento.class);
-        
-        ConfigurableApplicationContext context = SpringApplication.run(EstacionesApplication.class);
-        IServicioEstaciones servicio = context.getBean(IServicioEstaciones.class);
                 
         if (evento.getTipo().equals(bici_Alquilada)) {
 			servicio.retirarBicicleta(evento.getIdBicicleta());

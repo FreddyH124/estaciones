@@ -9,7 +9,7 @@ using System.Security.Claims;
 namespace WebApi.Authorization;
 
 public interface IJwtUtils{
-    public string GenerateToken(IDictionary<string,object> claims);
+    //public string GenerateToken(IDictionary<string,object> claims);
     public string GenerateSignUpCodeToken(string user);
     public string? ValidateToken(string token);
 }
@@ -22,7 +22,7 @@ public class JwtUtils : IJwtUtils{
         _appSettings = appSettings.Value;
     }
 
-    public string GenerateToken(IDictionary<string,object> claims){
+    /* public string GenerateToken(IDictionary<string,object> claims){
         var tokenHandler = new JwtSecurityTokenHandler();
         var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
 
@@ -39,7 +39,7 @@ public class JwtUtils : IJwtUtils{
 
         var token = tokenHandler.CreateToken(tokenDescriptor);
         return tokenHandler.WriteToken(token);
-    }
+    } */
 
     public string GenerateSignUpCodeToken(string userId){
         var tokenHandler = new JwtSecurityTokenHandler();

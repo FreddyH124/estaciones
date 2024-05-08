@@ -11,9 +11,9 @@ public class TestPublicador {
 		
 		PublicadorEventos sender = new PublicadorEventos();
 		
-		Evento event = new Evento("bicicleta-alquiler-concluido", new Date(), "661981d746b9b4732c1b2e49", "estaccionne");  
+		/*Evento event = new Evento("bicicleta-alquiler-concluido", new Date(), "661981d746b9b4732c1b2e49", "estaccionne");
 		
-		sender.publicarEvento(event);
+		sender.publicarEvento(event);*/
 
 	}
 

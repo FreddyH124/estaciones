@@ -13,7 +13,11 @@ public class PublicadorEventos implements IPublicadorEventos {
 	public void publicarEvento(Evento evento) throws Exception {
 
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setUri("amqps://hazguuiy:sxBSsDOJonJWPEdeSN5IlJ2Ck0cl_WUK@stingray.rmq.cloudamqp.com/hazguuiy");
+		factory.setHost("rabbitmq");
+		factory.setPort(5672);
+		factory.setUsername("user");
+		factory.setPassword("password");
+		//factory.setUri("amqps://hazguuiy:sxBSsDOJonJWPEdeSN5IlJ2Ck0cl_WUK@stingray.rmq.cloudamqp.com/hazguuiy");
 
 		Connection connection = factory.newConnection();
 
@@ -23,6 +27,8 @@ public class PublicadorEventos implements IPublicadorEventos {
 		
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		String json = ow.writeValueAsString(evento);
+
+		System.out.println(json);
 
 		channel.basicPublish("amq.topic", routingKey, new AMQP.BasicProperties.Builder()
 				.contentType("application/json")

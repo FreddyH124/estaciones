@@ -18,7 +18,7 @@ import org.springframework.context.annotation.Configuration;
 
 public class AppConfig {
 
-    //Como la API de .NET es https pues esto sirve para que un cliente HTTP ignore las verificaciones SSL
+    /*//Como la API de .NET es https pues esto sirve para que un cliente HTTP ignore las verificaciones SSL
     @Bean
     public CloseableHttpClient httpClient() throws Exception {
         return HttpClients.custom()
@@ -26,5 +26,5 @@ public class AppConfig {
                         .loadTrustMaterial(null, (certificate, authType) -> true)
                         .build())
                 .build();
-    }
+    }*/
 }

@@ -20,7 +20,7 @@ public class SecurityConfiguration {
 
     private final JWTTokenFilter jwtAuthFilter;
 
-    private final AuthenticationProvider authenticationProvider;
+    //private final AuthenticationProvider authenticationProvider;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -28,9 +28,7 @@ public class SecurityConfiguration {
             .csrf()
             .disable()
             .authorizeHttpRequests()
-            .antMatchers("/auth/**")
-            .permitAll()
-            .antMatchers("/estaciones/estacionar")
+            .antMatchers("/estaciones/estacionadas/nuevo")
             .permitAll()
             .antMatchers("/estaciones/bicicletas/retirar/{idBicicleta}")
             .permitAll()
@@ -42,7 +40,7 @@ public class SecurityConfiguration {
             .sessionManagement()
             .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             .and()
-            .authenticationProvider(authenticationProvider)
+            //.authenticationProvider(authenticationProvider)
             .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
 

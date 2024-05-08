@@ -1,15 +1,9 @@
 package org.arso.tests;
 
-import org.arso.factory.FactoriaRepositorios;
 import org.arso.factory.FactoriaServicios;
-import org.arso.interfaces.services.IServicioAlquileres;
-import org.arso.model.Reserva;
-import org.arso.model.Usuario;
+import org.arso.interfaces.IServicioAlquileres;
 import org.arso.repository.NotAllowedException;
 import org.arso.repository.RepositorioException;
-import org.arso.repository.RepositorioUsuarios;
-
-import java.time.LocalDateTime;
 
 public class ProgramEjercicio2 {
     public static void main(String[] args) throws NotAllowedException, RepositorioException {
@@ -20,7 +14,7 @@ public class ProgramEjercicio2 {
         servicio.reservarBicicleta("1", "5");
 
         //Confirmar la reserva activa del usuario
-        servicio.confirmarReserva("1");
+        //servicio.confirmarReserva("1");
 
         //Alquilar bicicleta sin reserva previa
         //Para que funcione se deben comentar los dos metodos anteriores del servicio

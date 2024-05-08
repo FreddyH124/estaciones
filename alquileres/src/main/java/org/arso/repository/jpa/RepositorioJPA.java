@@ -1,7 +1,7 @@
 package org.arso.repository.jpa;
 
 import org.arso.interfaces.IIdentificable;
-import org.arso.interfaces.repository.IRepositorioString;
+import org.arso.interfaces.IRepositorioString;
 import org.arso.repository.EntidadNoEncontrada;
 import org.arso.repository.RepositorioException;
 import org.arso.utils.EntityManagerHelper;

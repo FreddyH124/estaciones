@@ -1,4 +1,4 @@
-package org.arso.interfaces.repository;
+package org.arso.interfaces;
 
 
 import org.arso.repository.EntidadNoEncontrada;

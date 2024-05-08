@@ -13,7 +13,9 @@ import javax.ws.rs.container.ContainerRequestContext;
 import javax.ws.rs.ext.Provider;
 
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
+import org.arso.factory.FactoriaServicios;
+import org.arso.interfaces.IJwtService;
+import org.arso.model.Rol;
 
 import javax.ws.rs.container.ContainerRequestFilter;
 import javax.ws.rs.container.ResourceInfo;
@@ -31,6 +33,8 @@ public class JwtTokenFilter implements ContainerRequestFilter {
 	@Context
 	private HttpServletRequest servletRequest; // Peticion a bajo nivel
 
+	private IJwtService jwtService = FactoriaServicios.getServicio(IJwtService .class);
+
 	@Override
 	public void filter(ContainerRequestContext requestContext) {
 
@@ -46,7 +50,7 @@ public class JwtTokenFilter implements ContainerRequestFilter {
 		} else {
 			String token = authorization.substring("Bearer ".length()).trim();
 			try {
-				Claims claims = Jwts.parser().setSigningKey("secreto").parseClaimsJws(token).getBody();
+				Claims claims = jwtService.extractAllClaims(token);
 
 				this.servletRequest.setAttribute("claims", claims);
 
@@ -56,15 +60,31 @@ public class JwtTokenFilter implements ContainerRequestFilter {
 					requestContext.abortWith(Response.status(Response.Status.UNAUTHORIZED).build());
 
 				// Control por roles
-				Set<String> roles = new HashSet<>(Arrays.asList(claims.get("roles", String.class).split(",")));
+				int rolInt = claims.get("rol", Integer.class);
+
+
+				Rol rol = null;
+
+				switch (rolInt) {
+					case -1:
+						rol = Rol.GESTOR;
+						break;
+					case 0:
+						rol = Rol.NORMAL;
+						break;
+					default:
+						throw new IllegalArgumentException("Valor de rol desconocido: " + rolInt);
+				}
+
+				Set<String> authorities = new HashSet<>();
+				authorities.add(rol.name());
 
 				if (this.resourceInfo.getResourceMethod().isAnnotationPresent(RolesAllowed.class)) {
 
 					String[] allowedRoles = resourceInfo.getResourceMethod().getAnnotation(RolesAllowed.class).value();
 
-					if (roles.stream().noneMatch(userRole -> Arrays.asList(allowedRoles).contains(userRole))) {
+					if (authorities.stream().noneMatch(userRole -> Arrays.asList(allowedRoles).contains(userRole))) {
 						requestContext.abortWith(Response.status(Response.Status.FORBIDDEN).build());
-
 					}
 				}
 

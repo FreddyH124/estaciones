@@ -1,7 +1,7 @@
 package org.arso.repository.onmemory;
 
 import org.arso.interfaces.IIdentificable;
-import org.arso.interfaces.repository.IRepositorioString;
+import org.arso.interfaces.IRepositorioString;
 import org.arso.repository.EntidadNoEncontrada;
 
 import java.util.ArrayList;

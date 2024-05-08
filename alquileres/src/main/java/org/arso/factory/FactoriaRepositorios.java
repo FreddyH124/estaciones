@@ -1,7 +1,7 @@
 package org.arso.factory;
 
 
-import org.arso.interfaces.repository.IRepositorio;
+import org.arso.interfaces.IRepositorio;
 import org.arso.utils.PropertiesReader;
 
 public class FactoriaRepositorios {

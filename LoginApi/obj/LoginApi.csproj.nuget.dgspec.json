@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "c:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\LoginApi.csproj": {}
+    "C:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\LoginApi.csproj": {}
   },
   "projects": {
-    "c:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\LoginApi.csproj": {
+    "C:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\LoginApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "c:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\LoginApi.csproj",
+        "projectUniqueName": "C:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\LoginApi.csproj",
         "projectName": "LoginApi",
-        "projectPath": "c:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\LoginApi.csproj",
+        "projectPath": "C:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\LoginApi.csproj",
         "packagesPath": "C:\\Users\\herna\\.nuget\\packages\\",
-        "outputPath": "c:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\obj\\",
+        "outputPath": "C:\\Users\\herna\\OneDrive\\Escritorio\\EnOneDrive\\UNIVERSIDAD\\UNIVERSIDAD23-24\\ARSO\\mircoserviciosARSO\\LoginApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "E:\\VStudio\\COMPONENTS\\NuGetPackages"

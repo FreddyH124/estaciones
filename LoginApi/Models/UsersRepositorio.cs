@@ -3,10 +3,16 @@ using WebApi.Entities;
 using Repositorio;
 using WebApi.Helpers;
 using WebApi.Mongo.Repositorio;
+using Microsoft.Extensions.Configuration;
 
 namespace Users.Repositorio;
 public class RepositorioUsersMongoDB : MongoRepository<User>
 {
+
+    public RepositorioUsersMongoDB(IConfiguration configuration) : base(configuration){
+
+    }
+
     public override string Add(User entity){
         var users = GetCollection();
         if (users.Find(x => x.Username == entity.Username).Any()){
@@ -19,7 +25,7 @@ public class RepositorioUsersMongoDB : MongoRepository<User>
 
     public User FindByUsername(string username){
         var database = base.GetDatabase();
-        var collection = database.GetCollection<User>("users.net");
+        var collection = database.GetCollection<User>("users");
 
         var filter = Builders<User>.Filter.And(
             Builders<User>.Filter.Eq(user => user.Username, username)
@@ -31,12 +37,12 @@ public class RepositorioUsersMongoDB : MongoRepository<User>
     public override IMongoCollection<User> GetCollection()
     {
         var database = base.GetDatabase();
-        var collection = database.GetCollection<User>("users.net");
+        var collection = database.GetCollection<User>("users");
         return collection;
     }
 
     public override string GetCollectionName()
     {
-        return "users";
+        return "dbUsuarios";
     }
 }

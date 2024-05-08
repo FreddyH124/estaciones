@@ -6,6 +6,7 @@ import org.arso.persistence.jpa.AlquilerEntidad;
 import org.arso.persistence.jpa.ReservaEntidad;
 import org.arso.persistence.jpa.UsuarioEntidad;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -64,7 +65,7 @@ public class Usuario implements IIdentificable, IEntidadParseable<UsuarioEntidad
 
     public long getTiempoUsoHoy(){
         return alquileres.stream()
-                .filter(alquiler -> alquiler.getInicio().equals(LocalDateTime.now()))
+                .filter(alquiler -> alquiler.getInicio().toLocalDate().equals(LocalDate.now()))
                 .mapToLong(Alquiler::getTiempoAlquiler)
                 .sum();
     }

@@ -10,9 +10,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface RepositorioBicicletas extends IRepositorioBicicletas, MongoRepository<Bicicleta, String> {
-    @Query("{'estacionActual.id': ?0}")
-    Page<Bicicleta> findByEstacionActualId(String idEstacion, Pageable pageable);
 
-    @Query("{'estacionActual.id': ?0, 'disponible': true}")
-    Page<Bicicleta> findByDisponibleAndEstacionActualId(String idEstacion, Pageable pageable);
 }

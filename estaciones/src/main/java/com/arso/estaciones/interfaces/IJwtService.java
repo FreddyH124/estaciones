@@ -9,17 +9,17 @@ import java.util.Map;
 import java.util.function.Function;
 
 public interface IJwtService {
-    String extractUsername(String token);
+    //String extractUsername(String token);
 
-    Date extractExpiration(String token);
+   //Date extractExpiration(String token);
 
-    <T> T extractClaim(String token, Function<Claims, T> claimsResolver);
+    //<T> T extractClaim(String token, Function<Claims, T> claimsResolver);
 
-    //Claims extractAllClaims(String token);
+    Claims extractAllClaims(String token);
 
     //Boolean isTokenExpired(String token);
 
-    Boolean validateToken(String token, UserDetails userDetails);
+    //Boolean validateToken(String token, UserDetails userDetails);
 
     //String generateToken(UserDetails userDetails);
 

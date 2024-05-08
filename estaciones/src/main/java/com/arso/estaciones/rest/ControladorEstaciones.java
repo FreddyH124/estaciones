@@ -4,6 +4,7 @@ import com.arso.estaciones.interfaces.IServicioEstaciones;
 import com.arso.estaciones.model.DTO.*;
 import com.fasterxml.jackson.core.JsonProcessingException;
 
+import com.arso.estaciones.repository.EntidadNoEncontrada;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -43,12 +44,15 @@ public class ControladorEstaciones {
     )
     @PreAuthorize("hasAuthority('GESTOR')")
     @PostMapping(value = "/alta")
-    public ResponseEntity<Void> altaEstacion(@Valid @RequestBody AltaEstacionDTO dto) {
+    public ResponseEntity<URI> altaEstacion(@Valid @RequestBody AltaEstacionDTO dto) {
         String id = servicioEstaciones.altaEstacion(dto);
-        URI url = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(id).toUri();
+        URI url = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(id)
+                .toUri();
 
-        return ResponseEntity.created(url).build();
+        return ResponseEntity.created(url).body(url);
     }
 
     @Operation(
@@ -57,12 +61,12 @@ public class ControladorEstaciones {
     )
     @PreAuthorize("hasAuthority('GESTOR')")
     @PostMapping("/bicicletas/alta")
-    public ResponseEntity<Void> altaBicicletas(@Valid @RequestBody AltaBicicletaDTO dto) {
+    public ResponseEntity<URI> altaBicicletas(@Valid @RequestBody AltaBicicletaDTO dto) throws EntidadNoEncontrada {
         String id = servicioEstaciones.altaBicicleta(dto);
         URI url = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(id).toUri();
 
-        return ResponseEntity.created(url).build();
+        return ResponseEntity.created(url).body(url);
     }
 
     @Operation(
@@ -73,10 +77,10 @@ public class ControladorEstaciones {
     @PostMapping("/bicicletas/{id}/baja")
     public ResponseEntity<Void> bajaBicicleta(
             @Parameter(description = "ID de la bicicleta", example = "660ee344ef8055670e95a1bb") @PathVariable String id,
-            @Parameter(description = "Motivo de la baja", example = "Mantenimiento") @RequestParam String motivo) throws JsonProcessingException {
+            @Parameter(description = "Motivo de la baja", example = "Mantenimiento") @RequestParam String motivo) throws EntidadNoEncontrada, JsonProcessingException {
 
         servicioEstaciones.bajaBicicleta(id, motivo);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(
@@ -88,7 +92,10 @@ public class ControladorEstaciones {
     public PagedModel<EntityModel<BicicletaDTO>> getBicicletasByEstacion(
             @Parameter(description = "ID de la estación", example = "6616cee50a78571ff80a8ff3") @PathVariable String id,
             Pageable pageable) {
-        Page<BicicletaDTO> result = servicioEstaciones.getAllBiciletas(id, pageable);
+        Page<BicicletaDTO> result = servicioEstaciones.getAllBiciletas(id, pageable).map(bicicleta -> {
+            BicicletaDTO dto =DTOHelper.fromEntity(bicicleta);
+            return dto;
+        });
         return pagedBicicletaResourcesAssembler.toModel(result, bicicletaDTO -> {
             EntityModel<BicicletaDTO> model = EntityModel.of(bicicletaDTO);
             try {
@@ -110,7 +117,11 @@ public class ControladorEstaciones {
     @PreAuthorize("hasAnyAuthority('GESTOR','NORMAL')")
     @GetMapping()
     public PagedModel<EntityModel<EstacionDTO>> getEstaciones(Pageable pageable) {
-        Page<EstacionDTO> result = servicioEstaciones.getAllEstaciones(pageable);
+        Page<EstacionDTO> result = servicioEstaciones.getAllEstaciones(pageable).map(estacion -> {
+            EstacionDTO dto =DTOHelper.fromEntity(estacion);
+            return dto;
+        });
+
         return pagedEstacionResourcesAssembler.toModel(result, estacionDto -> {
             EntityModel<EstacionDTO> model = EntityModel.of(estacionDto);
             try {
@@ -132,8 +143,8 @@ public class ControladorEstaciones {
     @PreAuthorize("hasAnyAuthority('GESTOR','NORMAL')")
     @GetMapping("/{id}")
     public EntityModel<EstacionDTO> getEstacionById(
-            @Parameter(description = "ID de la estación", example = "6616cee50a78571ff80a8ff3") @PathVariable String id) {
-        EstacionDTO dto = servicioEstaciones.getEstacion(id);
+            @Parameter(description = "ID de la estación", example = "6616cee50a78571ff80a8ff3") @PathVariable String id) throws EntidadNoEncontrada {
+        EstacionDTO dto = DTOHelper.fromEntity(servicioEstaciones.getEstacion(id));
 
         EntityModel<EstacionDTO> model =  EntityModel.of(dto);
         model.add(WebMvcLinkBuilder.linkTo(WebMvcLinkBuilder
@@ -151,7 +162,11 @@ public class ControladorEstaciones {
     @GetMapping("/{id}/bicicletas/disponibles")
     public PagedModel<EntityModel<BicicletaDTO>> getBicicletasDisponiblesByEstacion(
             @Parameter(description = "ID de la estación", example = "6616cee50a78571ff80a8ff3") @PathVariable String id, Pageable pageable) {
-        Page<BicicletaDTO> result = servicioEstaciones.getBicicletasDisponibles(id, pageable);
+        Page<BicicletaDTO> result = servicioEstaciones.getBicicletasDisponibles(id, pageable).map(bicicleta -> {
+            BicicletaDTO dto =DTOHelper.fromEntity(bicicleta);
+            return dto;
+        });
+
         return pagedBicicletaResourcesAssembler.toModel(result, bicicletaDTO -> {
             EntityModel<BicicletaDTO> model = EntityModel.of(bicicletaDTO);
             try {
@@ -170,10 +185,10 @@ public class ControladorEstaciones {
             summary = "Estacionar bicicleta",
             description = "Estaciona una bicicleta en la estación especificada."
     )
-    @PostMapping("/estacionar")
-    public ResponseEntity<Void> estacionar(@Valid @RequestBody EstacionarBicicletaDTO dto) {
+    @PostMapping("/estacionadas/nuevo")
+    public ResponseEntity<Void> estacionar(@Valid @RequestBody EstacionarBicicletaDTO dto) throws EntidadNoEncontrada {
         servicioEstaciones.estacionarBicicleta(dto);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
     @Operation(
@@ -182,9 +197,9 @@ public class ControladorEstaciones {
     )
     @PostMapping("/bicicletas/retirar/{idBicicleta}")
     public ResponseEntity<Void> retirar(
-            @Parameter(description = "ID de la bicicleta", example = "6616cee50a78571ff80a8ff3") @PathVariable String idBicicleta) {
+            @Parameter(description = "ID de la bicicleta", example = "6616cee50a78571ff80a8ff3") @PathVariable String idBicicleta) throws EntidadNoEncontrada {
         servicioEstaciones.retirarBicicleta(idBicicleta);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.noContent().build();
     }
 
 }

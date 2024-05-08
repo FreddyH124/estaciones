@@ -5,8 +5,7 @@ import org.arso.communication.Evento;
 import org.arso.communication.PublicadorEventos;
 import org.arso.communication.retrofit.estaciones.model.EstacionarBicicletaDTO;
 import org.arso.factory.FactoriaRepositorios;
-import org.arso.interfaces.services.IServicioAlquileres;
-import org.arso.interfaces.services.IServicioEstaciones;
+import org.arso.interfaces.IServicioAlquileres;
 import org.arso.model.Alquiler;
 import org.arso.model.Bicicleta;
 import org.arso.model.Reserva;
@@ -64,7 +63,7 @@ public class ServicioAlquileres implements IServicioAlquileres {
     }
 
     @Override
-    public void confirmarReserva(String idUsuario) throws IllegalStateException, RepositorioException {
+    public void confirmarReserva(String idUsuario) throws Exception {
         Usuario usuario = getUsuario(idUsuario);
 
         Reserva reserva = usuario.getReservaActiva();
@@ -73,11 +72,6 @@ public class ServicioAlquileres implements IServicioAlquileres {
             throw new IllegalStateException("El usuario no tiene una reserva pendiente de confirmar");
         }
 
-        Alquiler alquiler = new Alquiler();
-        alquiler.setIdBicicleta(reserva.getIdBicicleta());
-        alquiler.setInicio(LocalDateTime.now());
-
-        usuario.addAlquiler(alquiler);
         usuario.removeReserva(reserva);
 
         //Todo actualizar usuario en la bbdd
@@ -86,6 +80,9 @@ public class ServicioAlquileres implements IServicioAlquileres {
         } catch (EntidadNoEncontrada e) {
             throw new RuntimeException(e);
         }
+
+        alquilarBicicleta(idUsuario, reserva.getIdBicicleta());
+
     }
 
     @Override
@@ -135,13 +132,6 @@ public class ServicioAlquileres implements IServicioAlquileres {
             throw new IllegalStateException("El usuario no una reserva pendientes de confirmar");
         }
 
-        IServicioEstaciones servicio = FactoriaServicios.getServicio(IServicioEstaciones.class);
-
-        //Todo obtener la bicicleta
-        Bicicleta bicicleta = new Bicicleta();
-        EstacionarBicicletaDTO estacionarBici = new EstacionarBicicletaDTO(idEstacion, bicicleta.getId());
-        servicio.estacionarBicicleta(estacionarBici);
-
         alquiler.setFin(LocalDateTime.now());
 
         //Todo actualizar usuario en la bbdd
@@ -152,7 +142,7 @@ public class ServicioAlquileres implements IServicioAlquileres {
         }
         
       //Se crea el evento y se envia
-        Evento evento = new Evento("bicicleta-alquiler-concluido", new Date(), bicicleta.getId(), idEstacion);
+        Evento evento = new Evento("bicicleta-alquiler-concluido", new Date(), alquiler.getIdBicicleta(), idEstacion);
         publicador.publicarEvento(evento);
     }
 

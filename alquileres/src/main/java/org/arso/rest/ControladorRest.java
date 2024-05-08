@@ -16,9 +16,11 @@ import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.arso.factory.FactoriaServicios;
-import org.arso.interfaces.services.IServicioAlquileres;
+import org.arso.interfaces.IServicioAlquileres;
 
 import io.jsonwebtoken.Claims;
+import org.arso.model.DTO.UsuarioResumenDTO;
+import org.arso.model.Usuario;
 
 @Path("alquileres")
 public class ControladorRest {
@@ -30,39 +32,16 @@ public class ControladorRest {
 	
 	@Context
 	private HttpServletRequest servletRequest;
-	
-	//http://localhost:8080/api/alquileres/1
-	
-	@GET
-	@Path("{id}")
-	@Produces(MediaType.APPLICATION_JSON)
-	@RolesAllowed("administrador")
-	public Response getUsuario( @PathParam("id") String id) throws Exception {
-		
-		if (this.servletRequest.getAttribute("claims") != null) {
-			Claims claims = (Claims) this.servletRequest.getAttribute("claims");
-			System.out.println("Usuario autenticado: " + claims.getSubject());
-			System.out.println("Roles: " + claims.get("roles"));
-			}
-		
-		try {
-			servicioAlquileres.getUsuario(id);
-		} catch (IllegalArgumentException e) {
-			
-			Response.status(Response.Status.BAD_REQUEST).build();
-		}
-		return Response.status(Response.Status.OK).entity(servicioAlquileres.getUsuario(id)).build();
-		
-		
-	}
-	
+
 	@POST
-	@Path("{id}/reservas")
-	public Response reservarBicileta( @PathParam("id") String id,
-			String idBicicleta) throws Exception {
+	@Path("bicicletas/{idUsuario}/reservar/{idBicicleta}")
+	@RolesAllowed("NORMAL")
+	public Response reservarBicileta( @PathParam("idUsuario") String idUsuario,
+									  @PathParam("idBicicleta") String idBicicleta) throws Exception {
 		
 		try {
-			servicioAlquileres.reservarBicicleta(id, idBicicleta);
+			servicioAlquileres.reservarBicicleta(idUsuario, idBicicleta);
+			return Response.status(Response.Status.CREATED).build();
 		} catch (IllegalArgumentException e) {
 			
 			Response.status(Response.Status.BAD_REQUEST).build();
@@ -72,10 +51,12 @@ public class ControladorRest {
 	}
 	
 	@POST
-	@Path("{id}/reservas")
-	public Response confirmarReserva(@PathParam("id") String id) throws Exception {
+	@Path("reservas/{idUsuario}/confirmar")
+	@RolesAllowed("NORMAL")
+	public Response confirmarReserva(@PathParam("idUsuario") String idUsuario) throws Exception {
 		try {
-			servicioAlquileres.confirmarReserva(id);
+			servicioAlquileres.confirmarReserva(idUsuario);
+			return Response.status(Response.Status.OK).build();
 		} catch (IllegalStateException e) {
 			Response.status(Response.Status.BAD_REQUEST).build();
 		}
@@ -84,11 +65,12 @@ public class ControladorRest {
 	}
 	
 	@POST
-	@Path("{id}/reserva/alquileres")
-	public Response alquilarBicicleta(@PathParam("id") String id,
-		String idBicicleta) throws Exception {
+	@Path("bicicletas/{idUsuario}/alquilar/{idBicicleta}")
+	@RolesAllowed("NORMAL")
+	public Response alquilarBicicleta(@PathParam("idUsuario") String idUsuario,
+									  @PathParam("idBicicleta") String idBicicleta) throws Exception {
 		try {
-			servicioAlquileres.reservarBicicleta(id, idBicicleta);
+			servicioAlquileres.alquilarBicicleta(idUsuario, idBicicleta);
 		} catch (IllegalStateException e) {
 			Response.status(Response.Status.BAD_REQUEST).build();
 		}
@@ -97,11 +79,12 @@ public class ControladorRest {
 	}
 	
 	@POST
-	@Path("{id}/alquiler-activo")
-	public Response dejarBicicleta(@PathParam("id") String id,
-		String idEstacion) throws Exception {
+	@Path("activo/{idUsuario}/finalizar/{idEstacion}")
+	@RolesAllowed("NORMAL")
+	public Response dejarBicicleta(@PathParam("idUsuario") String idUsuario,
+								   @PathParam("idEstacion") String idEstacion) throws Exception {
 		try {
-			servicioAlquileres.dejarBicicleta(id, idEstacion);
+			servicioAlquileres.dejarBicicleta(idUsuario, idEstacion);
 		} catch (IllegalStateException e) {
 			Response.status(Response.Status.BAD_REQUEST).build();
 		}
@@ -110,17 +93,35 @@ public class ControladorRest {
 	}
 	
 	@PATCH
-	@Path("{id}")
-	public Response liberarBloqueo(@PathParam("id") String id) throws Exception {
+	@Path("usuarios/{idUsuario}/liberar")
+	@RolesAllowed("GESTOR")
+	public Response liberarBloqueo(@PathParam("idUsuario") String idUsuario) throws Exception {
 		try {
-			servicioAlquileres.liberarBloqueo(id);
+			servicioAlquileres.liberarBloqueo(idUsuario);
 		} catch (IllegalStateException e) {
 			Response.status(Response.Status.BAD_REQUEST).build();
 		}
 		return Response.status(Response.Status.NO_CONTENT).build();
 	}
-	
-	
+
+	@GET
+	@Path("usuarios/{idUsuario}/historial")
+	@Produces(MediaType.APPLICATION_JSON)
+	@RolesAllowed("NORMAL")
+	public Response getHistorialUsuario( @PathParam("idUsuario") String idUsuario) throws Exception {
+
+		try {
+			Usuario usuario = servicioAlquileres.historialUsuario(idUsuario);
+			UsuarioResumenDTO resumen = new UsuarioResumenDTO(usuario.getReservas(), usuario.getAlquileres(),
+																usuario.isBloqueado(), usuario.getTiempoUsoHoy(), usuario.getTiempoUsoSemanal());
+			return Response.status(Response.Status.OK).entity(resumen).build();
+		} catch (IllegalArgumentException e) {
+
+			Response.status(Response.Status.BAD_REQUEST).build();
+		}
+
+        return Response.status(Response.Status.BAD_REQUEST).build();
+    }
 	
 	
 

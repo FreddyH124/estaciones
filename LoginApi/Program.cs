@@ -21,8 +21,18 @@ builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSet
 builder.Services.AddScoped<IJwtUtils, JwtUtils>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ISignUpCodeService, SignUpCodeService>();
-builder.Services.AddSingleton<Repositorio<User, string>, RepositorioUsersMongoDB>(); 
-builder.Services.AddSingleton<Repositorio<SignUpCode, string>, SignUpCodesRepository>(); 
+
+builder.Services.AddSingleton<Repositorio<User, string>>(serviceProvider => 
+{
+    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+    return new RepositorioUsersMongoDB(configuration);
+});
+
+builder.Services.AddSingleton<Repositorio<SignUpCode, string>>(serviceProvider =>
+{
+    var configuration = serviceProvider.GetRequiredService<IConfiguration>();
+    return new SignUpCodesRepository(configuration);
+});
 
 var app = builder.Build();
 

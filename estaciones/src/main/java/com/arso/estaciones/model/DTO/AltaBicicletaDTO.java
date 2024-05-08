@@ -19,7 +19,7 @@ public class AltaBicicletaDTO {
     @NotNull
     @NotBlank
     private String modelo;
-    @Schema(description = "ID de la estación donde se dará de alta la bicicleta", example = "6616cee50a78571ff80a8ff3")
+    @Schema(description = "ID de la estación donde se dará de alta la bicicleta", example = "663b2ad6d295d90b4b0475f6")
     @NotNull
     @NotBlank
     private String idEstacion;

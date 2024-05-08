@@ -10,8 +10,8 @@ public abstract class MongoRepository<T> : Repositorio<T, string> where T : IIde
     private IMongoCollection<T> _collection;
     private MongoClient _client;
 
-    public MongoRepository(){
-        _connectionString = "mongodb+srv://freddy:Abril1204@cluster.bfkjqaz.mongodb.net/dbUsersNET?retryWrites=true&w=majority";
+    public MongoRepository(IConfiguration configuration){
+        _connectionString = configuration["ASPNETCORE_MONGODB_CONNECTION_STRING"] ?? "mongodb://root:1234@localhost:27017/dbUsuarios?retryWrites=true&w=majority";
         _client = new MongoClient(_connectionString);
         _collection = GetCollection();
 

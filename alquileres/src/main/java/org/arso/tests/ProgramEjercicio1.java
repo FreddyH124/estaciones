@@ -2,20 +2,18 @@ package org.arso.tests;
 
 import org.arso.factory.FactoriaRepositorios;
 import org.arso.factory.FactoriaServicios;
-import org.arso.interfaces.services.IServicioAlquileres;
+import org.arso.interfaces.IServicioAlquileres;
 import org.arso.model.Reserva;
 import org.arso.model.Usuario;
 import org.arso.repository.EntidadNoEncontrada;
 import org.arso.repository.NotAllowedException;
 import org.arso.repository.RepositorioException;
 import org.arso.repository.RepositorioUsuarioMemoria;
-import org.arso.services.ServicioAlquileresException;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
 public class ProgramEjercicio1 {
-    public static void main(String[] args) throws NotAllowedException, EntidadNoEncontrada, RepositorioException {
+    public static void main(String[] args) throws Exception {
         RepositorioUsuarioMemoria repositorio = FactoriaRepositorios.getRepositorio(Usuario.class);
         IServicioAlquileres servicio = FactoriaServicios.getServicio(IServicioAlquileres.class);
 

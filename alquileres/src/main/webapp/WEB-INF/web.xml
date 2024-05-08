@@ -20,5 +20,15 @@
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>StartupServlet</servlet-name>
+		<servlet-class>org.arso.communication.StartupServlet</servlet-class>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>StartupServlet</servlet-name>
+		<url-pattern>/startup</url-pattern>
+	</servlet-mapping>
 
 </web-app>

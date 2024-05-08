@@ -22,7 +22,11 @@ public class ConsumidorEventos implements IConsumidorEventos{
 		ServicioAlquileres servicioAlquileres = new ServicioAlquileres();
 		
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setUri("amqps://hazguuiy:sxBSsDOJonJWPEdeSN5IlJ2Ck0cl_WUK@stingray.rmq.cloudamqp.com/hazguuiy");
+		factory.setHost("rabbitmq");
+		factory.setPort(5672);
+		factory.setUsername("user");
+		factory.setPassword("password");
+		//factory.setUri("amqps://hazguuiy:sxBSsDOJonJWPEdeSN5IlJ2Ck0cl_WUK@stingray.rmq.cloudamqp.com/hazguuiy");
 
 		Connection connection = factory.newConnection();
 

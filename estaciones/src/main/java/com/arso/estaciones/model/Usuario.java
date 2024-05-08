@@ -20,14 +20,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Document(collection = "usuarios")
-public class Usuario implements IIdentificable, UserDetails {
+public class Usuario implements IIdentificable/*, UserDetails*/ {
     @Id
     private String id;
     private String nombre;
     private String clave;
     private Rol rol;
 
-    @Override
+    /*@Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
         authorities.add(new SimpleGrantedAuthority(rol.name()));
@@ -62,5 +62,5 @@ public class Usuario implements IIdentificable, UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
-    }
+    }*/
 }
