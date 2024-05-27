@@ -13,10 +13,20 @@ public class PublicadorEventos implements IPublicadorEventos {
 	public void publicarEvento(Evento evento) throws Exception {
 
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost("rabbitmq");
-		factory.setPort(5672);
-		factory.setUsername("user");
-		factory.setPassword("password");
+		String host = System.getenv("RABBITMQ_HOST");
+		int port = Integer.parseInt(System.getenv("RABBITMQ_PORT"));
+		String username = System.getenv("RABBITMQ_USERNAME");
+		String password = System.getenv("RABBITMQ_PASSWORD");
+
+		System.out.println("Host: " + host);
+		System.out.println("Port: " + port);
+		System.out.println("Username: " + username);
+		System.out.println("Password: " + password);
+
+		factory.setHost(host);
+		factory.setPort(port);
+		factory.setUsername(username);
+		factory.setPassword(password);
 		//factory.setUri("amqps://hazguuiy:sxBSsDOJonJWPEdeSN5IlJ2Ck0cl_WUK@stingray.rmq.cloudamqp.com/hazguuiy");
 
 		Connection connection = factory.newConnection();
@@ -24,7 +34,7 @@ public class PublicadorEventos implements IPublicadorEventos {
 		Channel channel = connection.createChannel();
 
 		String routingKey = "arso";
-		
+
 		ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
 		String json = ow.writeValueAsString(evento);
 

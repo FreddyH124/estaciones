@@ -5,6 +5,14 @@ services:
       build: alquileres/
       ports:
         - "8080:8080"
+      environment:
+        - DATABASE_URL=jdbc:mysql://mysql:3306/alquileres?useSSL=false&serverTimezone=CET
+        - DATABASE_USER=root
+        - DATABASE_PASSWORD=mysql123
+        - RABBITMQ_HOST=rabbitmq
+        - RABBITMQ_PORT=5672
+        - RABBITMQ_USERNAME=user
+        - RABBITMQ_PASSWORD=password
       depends_on:
         - mysql
         - rabbitmq
@@ -15,6 +23,10 @@ services:
         - "8081:8081"
       environment:
         - SPRING_DATA_MONGODB_URI=mongodb://root:1234@mongo:27017/dbEstaciones?authSource=admin
+        - SPRING_RABBITMQ_HOST=rabbitmq
+        - SPRING_RABBITMQ_PORT=5672
+        - SPRING_RABBITMQ_USERNAME=user
+        - SPRING_RABBITMQ_PASSWORD=password
       depends_on:
         - mongo
         - rabbitmq

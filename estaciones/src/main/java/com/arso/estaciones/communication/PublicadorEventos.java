@@ -15,7 +15,7 @@ public class PublicadorEventos implements IPublicadorEventos{
 	@Override
 	public void sendMessage(Object evento) {
 		rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, 
-				RabbitMQConfig.ROUTING_KEY,
+				RabbitMQConfig.ROUTING_KEY2,
 				evento);
 		
 	}

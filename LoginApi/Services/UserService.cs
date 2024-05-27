@@ -73,7 +73,7 @@ public class UserService : IUserService
 
         User aux =  ((RepositorioUsersMongoDB)_userRepository).FindByUsername(username);
         if(aux == null){
-            throw new KeyNotFoundException($"User: {username} Not Found");
+            throw new AppException($"User: {username} Not Found");
         }
 
         if (aux == null || !BCrypt.Net.BCrypt.Verify(pwd, aux.PasswordHash))

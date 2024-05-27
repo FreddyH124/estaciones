@@ -22,10 +22,15 @@ public class ConsumidorEventos implements IConsumidorEventos{
 		ServicioAlquileres servicioAlquileres = new ServicioAlquileres();
 		
 		ConnectionFactory factory = new ConnectionFactory();
-		factory.setHost("rabbitmq");
-		factory.setPort(5672);
-		factory.setUsername("user");
-		factory.setPassword("password");
+		String host = System.getenv("RABBITMQ_HOST");
+		int port = Integer.parseInt(System.getenv("RABBITMQ_PORT"));
+		String username = System.getenv("RABBITMQ_USERNAME");
+		String password = System.getenv("RABBITMQ_PASSWORD");
+
+		factory.setHost(host);
+		factory.setPort(port);
+		factory.setUsername(username);
+		factory.setPassword(password);
 		//factory.setUri("amqps://hazguuiy:sxBSsDOJonJWPEdeSN5IlJ2Ck0cl_WUK@stingray.rmq.cloudamqp.com/hazguuiy");
 
 		Connection connection = factory.newConnection();
@@ -33,8 +38,8 @@ public class ConsumidorEventos implements IConsumidorEventos{
 		Channel channel = connection.createChannel();
 		
 		final String exchangeName = "amq.topic";
-		final String queueName = "citybike-estaciones";
-		final String bindingKey = "arso";
+		final String queueName = "citybike-alquileres";
+		final String bindingKey = "arso2";
 
 		boolean durable = true;
 		boolean exclusive = false;

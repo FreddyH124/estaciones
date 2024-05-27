@@ -25,6 +25,7 @@ public class RabbitMQConfig {
 	public static final String EXCHANGE_NAME = "amq.topic";
 
 	public static final String ROUTING_KEY = "arso";
+	public static final String ROUTING_KEY2 = "arso2";
 
 	@Bean
 	public DirectExchange exchange() {
@@ -55,6 +56,10 @@ public class RabbitMQConfig {
 
 	@Bean
 	public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, MessageConverter converter) {
+		System.out.println("Host: " + connectionFactory.getHost());
+		System.out.println("Port: " + connectionFactory.getPort());
+		System.out.println("Username: " + connectionFactory.getUsername());
+		//System.out.println("Password: " + connectionFactory.);
 		RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
 		rabbitTemplate.setMessageConverter(converter);
 		return rabbitTemplate;

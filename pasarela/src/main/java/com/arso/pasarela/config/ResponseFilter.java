@@ -56,9 +56,11 @@ public class ResponseFilter extends ZuulFilter {
 
     private void handleVerifyUser(RequestContext ctx) {
         // Lógica para manejar el endpoint /users/verify
+
         InputStream responseDataStream = ctx.getResponseDataStream();
         String responseBody = null;
         try {
+            if(ctx.getResponse().getStatus() < 300 && responseDataStream != null){
             responseBody = convertInputStreamToString(responseDataStream);
             if (responseBody != null && !responseBody.isEmpty()) {
                 ObjectMapper objectMapper = new ObjectMapper();
@@ -91,6 +93,7 @@ public class ResponseFilter extends ZuulFilter {
 
                 ctx.setResponseBody(jsonResponse);
                 ctx.getResponse().setContentType("application/json");
+            }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
