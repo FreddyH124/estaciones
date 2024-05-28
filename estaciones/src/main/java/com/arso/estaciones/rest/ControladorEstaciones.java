@@ -26,6 +26,7 @@ import java.net.URI;
 @RestController
 @RequestMapping("estaciones")
 @Tag(name = "Estaciones", description = "API para operaciones relacionadas con estaciones de bicicletas")
+@CrossOrigin(origins = "*", allowedHeaders = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
 public class ControladorEstaciones {
     private IServicioEstaciones servicioEstaciones;
     @Autowired

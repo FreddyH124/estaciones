@@ -20,7 +20,7 @@ import com.fasterxml.jackson.databind.DatabindException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Component
-public class ConsumidorEventos implements IConsumidorEventos{
+public class ConsumidorEventos/* implements IConsumidorEventos*/{
 	
 	private final static String bici_Alquilada = "bicicleta-alquilada";
 	private final static String bici_Alquiler_Concluido = "bicicleta-alquiler-concluido";
@@ -32,7 +32,7 @@ public class ConsumidorEventos implements IConsumidorEventos{
 	@Autowired
 	IServicioEstaciones servicio;
 	
-	@Override
+	//@Override
 	@RabbitListener(queues = RabbitMQConfig.QUEUE_NAME)
 	public void handleEvent(Message mensaje) throws StreamReadException, DatabindException, IOException, EntidadNoEncontrada {
 		byte[] cuerpo = mensaje.getBody();

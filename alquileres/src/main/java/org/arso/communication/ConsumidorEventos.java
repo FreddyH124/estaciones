@@ -14,9 +14,9 @@ import com.rabbitmq.client.ConnectionFactory;
 import com.rabbitmq.client.DefaultConsumer;
 import com.rabbitmq.client.Envelope;
 
-public class ConsumidorEventos implements IConsumidorEventos{
+public class ConsumidorEventos /*implements IConsumidorEventos*/{
 
-	@Override
+	//@Override
 	public void Escuchar() throws Exception {
 		
 		ServicioAlquileres servicioAlquileres = new ServicioAlquileres();
@@ -39,7 +39,7 @@ public class ConsumidorEventos implements IConsumidorEventos{
 		
 		final String exchangeName = "amq.topic";
 		final String queueName = "citybike-alquileres";
-		final String bindingKey = "arso2";
+		final String bindingKey = "arso";
 
 		boolean durable = true;
 		boolean exclusive = false;
@@ -51,6 +51,7 @@ public class ConsumidorEventos implements IConsumidorEventos{
 				exclusive, 
 				autodelete, 
 				properties);
+
 		channel.queueBind(queueName, exchangeName, bindingKey);
 
 		boolean autoAck = false;
@@ -63,21 +64,22 @@ public class ConsumidorEventos implements IConsumidorEventos{
 			public void handleDelivery(String consumerTag, Envelope envelope, AMQP.BasicProperties properties,
 					byte[] body) throws IOException {
 				
-				String routingKey = envelope.getRoutingKey();
-				String contentType = properties.getContentType();
+				//String routingKey = envelope.getRoutingKey();
+				//String contentType = properties.getContentType();
 				long deliveryTag = envelope.getDeliveryTag();
 				
 				String contenido = new String(body);		
 				
 				Evento evento = mapper.readValue(contenido, Evento.class);
 				
-				if(evento.getTipo().equals("bicicleta-desactivada"))
+				if(evento.getTipo().equals("bicicleta-desactivada")){
 					try {
 						servicioAlquileres.eliminarReserva(evento.getIdBicicleta());
-						
+
 					} catch (RepositorioException e) {
 						e.printStackTrace();
 					}
+				}
 				
 				// Confirma el procesamiento
 				channel.basicAck(deliveryTag, false);

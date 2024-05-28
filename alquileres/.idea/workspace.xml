@@ -5,13 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22ce43c3-e489-4376-a13d-52e70729c0f9" name="Changes" comment="Añadido todo el soporte JPA">
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/arso/rest/CorsFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/config/WebConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfo.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfoInputs.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi.assets.cache" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi1.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi1.pdb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi2.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi3.dll" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/apphost.exe" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/arso/communication/ConsumidorEventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/arso/communication/ConsumidorEventos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/arso/communication/PublicadorEventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/arso/communication/PublicadorEventos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/arso/utils/EntityManagerHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/arso/utils/EntityManagerHelper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/META-INF/persistence.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/arso/rest/ControladorRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/arso/rest/ControladorRest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/communication/ConsumidorEventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/communication/ConsumidorEventos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/communication/PublicadorEventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/communication/PublicadorEventos.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/communication/RabbitMQConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/communication/RabbitMQConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/rest/ControladorEstaciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/rest/ControladorEstaciones.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../estaciones/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../estaciones/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -155,8 +171,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.15989.150" />
-        <option value="bundled-js-predefined-1d06a55b98c1-91d5c284f522-JavaScript-IU-241.15989.150" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
       </set>
     </attachedChunks>
   </component>
@@ -189,6 +205,8 @@
       <workItem from="1715588555238" duration="1491000" />
       <workItem from="1715721882325" duration="267000" />
       <workItem from="1715763159840" duration="5503000" />
+      <workItem from="1716832447872" duration="1202000" />
+      <workItem from="1716910303442" duration="2858000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />

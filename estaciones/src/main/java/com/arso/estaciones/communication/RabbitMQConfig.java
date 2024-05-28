@@ -2,11 +2,7 @@ package com.arso.estaciones.communication;
 
 import java.util.Map;
 
-import org.springframework.amqp.core.Binding;
-import org.springframework.amqp.core.BindingBuilder;
-import org.springframework.amqp.core.DirectExchange;
-import org.springframework.amqp.core.Exchange;
-import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
@@ -17,7 +13,9 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.springframework.context.annotation.Configuration;
 
+@Configuration
 public class RabbitMQConfig {
 
 	public static final String QUEUE_NAME = "citybike-estaciones";
@@ -25,11 +23,11 @@ public class RabbitMQConfig {
 	public static final String EXCHANGE_NAME = "amq.topic";
 
 	public static final String ROUTING_KEY = "arso";
-	public static final String ROUTING_KEY2 = "arso2";
+	//public static final String ROUTING_KEY2 = "arso2";
 
 	@Bean
-	public DirectExchange exchange() {
-		return new DirectExchange(EXCHANGE_NAME);
+	public TopicExchange exchange() {
+		return new TopicExchange(EXCHANGE_NAME, true, false);
 	}
 
 	@Bean
@@ -56,10 +54,6 @@ public class RabbitMQConfig {
 
 	@Bean
 	public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory, MessageConverter converter) {
-		System.out.println("Host: " + connectionFactory.getHost());
-		System.out.println("Port: " + connectionFactory.getPort());
-		System.out.println("Username: " + connectionFactory.getUsername());
-		//System.out.println("Password: " + connectionFactory.);
 		RabbitTemplate rabbitTemplate = new RabbitTemplate(connectionFactory);
 		rabbitTemplate.setMessageConverter(converter);
 		return rabbitTemplate;

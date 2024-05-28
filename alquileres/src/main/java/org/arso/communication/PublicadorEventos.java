@@ -7,9 +7,9 @@ import com.rabbitmq.client.Channel;
 import com.rabbitmq.client.Connection;
 import com.rabbitmq.client.ConnectionFactory;
 
-public class PublicadorEventos implements IPublicadorEventos {
+public class PublicadorEventos /*implements IPublicadorEventos*/ {
 
-	@Override
+	//@Override
 	public void publicarEvento(Evento evento) throws Exception {
 
 		ConnectionFactory factory = new ConnectionFactory();
