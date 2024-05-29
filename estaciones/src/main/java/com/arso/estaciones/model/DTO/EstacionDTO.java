@@ -19,4 +19,8 @@ public class EstacionDTO implements IIdentificable {
     private String nombre;
     @Schema(description = "Número de puestos en la estación", example = "20")
     private int puestos;
+    @Schema(description = "Latitud", example = "20")
+    private double lat;
+    @Schema(description = "Longitud", example = "20")
+    private double lng;
 }

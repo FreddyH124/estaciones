@@ -36,7 +36,10 @@ public class ResponseFilter extends ZuulFilter {
 
     @Override
     public boolean shouldFilter() {
-        return true; // Habilitar el filtro
+        RequestContext ctx = RequestContext.getCurrentContext();
+        String requestMethod = ctx.getRequest().getMethod();
+        // No aplicar el filtro para solicitudes OPTIONS
+        return !"OPTIONS".equalsIgnoreCase(requestMethod);
     }
 
     @Override
@@ -47,8 +50,8 @@ public class ResponseFilter extends ZuulFilter {
 
         if (requestUri.endsWith("/verify")) {
             handleVerifyUser(ctx);
-        } else if (requestUri.endsWith("/signupcode")) {
-            //handleSignupCode(ctx);
+        } else if (requestUri.contains("/signup-token")) {
+            //handleVerifyUser(ctx);
         }
 
         return null;
@@ -61,39 +64,39 @@ public class ResponseFilter extends ZuulFilter {
         String responseBody = null;
         try {
             if(ctx.getResponse().getStatus() < 300 && responseDataStream != null){
-            responseBody = convertInputStreamToString(responseDataStream);
-            if (responseBody != null && !responseBody.isEmpty()) {
-                ObjectMapper objectMapper = new ObjectMapper();
-                Map<String, Object> responseMap = objectMapper.readValue(responseBody, new TypeReference<Map<String, Object>>() {});
-                // Generar el token JWT con la respuesta y establecerlo como cuerpo de la respuesta
-                String token = jwtService.generateToken(responseMap);
-                Object rolValue = responseMap.get("rol");
-                Rol rol = null;
-                if (rolValue instanceof Integer) {
-                    Integer rolInt = (Integer) rolValue;
-                    switch (rolInt) {
-                        case -1:
-                            rol = Rol.GESTOR;
-                            break;
-                        case 0:
-                            rol = Rol.NORMAL;
-                            break;
-                        default:
-                            throw new IllegalArgumentException("Valor de rol desconocido: " + rolInt);
+                responseBody = convertInputStreamToString(responseDataStream);
+                if (responseBody != null && !responseBody.isEmpty()) {
+                    ObjectMapper objectMapper = new ObjectMapper();
+                    Map<String, Object> responseMap = objectMapper.readValue(responseBody, new TypeReference<Map<String, Object>>() {});
+                    // Generar el token JWT con la respuesta y establecerlo como cuerpo de la respuesta
+                    String token = jwtService.generateToken(responseMap);
+                    Object rolValue = responseMap.get("rol");
+                    Rol rol = null;
+                    if (rolValue instanceof Integer) {
+                        Integer rolInt = (Integer) rolValue;
+                        switch (rolInt) {
+                            case -1:
+                                rol = Rol.GESTOR;
+                                break;
+                            case 0:
+                                rol = Rol.NORMAL;
+                                break;
+                            default:
+                                throw new IllegalArgumentException("Valor de rol desconocido: " + rolInt);
+                        }
                     }
+                    VerifyResponse verifyResponse = VerifyResponse.builder()
+                            .token(token)
+                            .id(responseMap.get("id").toString())
+                            .nombre(responseMap.get("name").toString())
+                            .rol(rol)
+                            .build();
+
+                    String jsonResponse = objectMapper.writeValueAsString(verifyResponse);
+
+                    ctx.setResponseBody(jsonResponse);
+                    ctx.getResponse().setContentType("application/json");
                 }
-                VerifyResponse verifyResponse = VerifyResponse.builder()
-                        .token(token)
-                        .id(responseMap.get("id").toString())
-                        .nombre(responseMap.get("name").toString())
-                        .rol(rol)
-                        .build();
-
-                String jsonResponse = objectMapper.writeValueAsString(verifyResponse);
-
-                ctx.setResponseBody(jsonResponse);
-                ctx.getResponse().setContentType("application/json");
-            }
             }
         } catch (IOException e) {
             throw new RuntimeException(e);

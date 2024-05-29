@@ -1,3 +1,4 @@
+/*
 package com.arso.pasarela.config;
 
 import com.netflix.zuul.ZuulFilter;
@@ -32,4 +33,4 @@ public class CorsFilter extends ZuulFilter {
         response.setHeader("Access-Control-Max-Age", "3600");
         return null;
     }
-}
+}*/

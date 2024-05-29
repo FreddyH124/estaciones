@@ -45,10 +45,10 @@ if (app.Environment.IsDevelopment())
 
 {
     // global cors policy
-    app.UseCors(x => x
+    /* app.UseCors(x => x
         .AllowAnyOrigin()
         .AllowAnyMethod()
-        .AllowAnyHeader());
+        .AllowAnyHeader()); */
 
     // global error handler
     app.UseMiddleware<ErrorHandlerMiddleware>();

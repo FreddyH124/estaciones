@@ -5,30 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="22ce43c3-e489-4376-a13d-52e70729c0f9" name="Changes" comment="Añadido todo el soporte JPA">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/arso/rest/CorsFilter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfo.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfo.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfoInputs.cache" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/obj/Debug/net6.0/LoginApi.AssemblyInfoInputs.cache" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi.assets.cache" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi1.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi1.pdb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi2.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/LoginApi3.dll" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/apphost.exe" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_08_05_2024_13_24__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../LoginApi/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/../LoginApi/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/arso/communication/ConsumidorEventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/arso/communication/ConsumidorEventos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/arso/communication/PublicadorEventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/arso/communication/PublicadorEventos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/arso/rest/ControladorRest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/arso/rest/ControladorRest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/communication/ConsumidorEventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/communication/ConsumidorEventos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/communication/PublicadorEventos.java" beforeDir="false" afterPath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/communication/PublicadorEventos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/communication/RabbitMQConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/communication/RabbitMQConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/rest/ControladorEstaciones.java" beforeDir="false" afterPath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/rest/ControladorEstaciones.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../estaciones/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/../estaciones/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/model/DTO/DTOHelper.java" beforeDir="false" afterPath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/model/DTO/DTOHelper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/model/DTO/EstacionDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/../estaciones/src/main/java/com/arso/estaciones/model/DTO/EstacionDTO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/PasarelaApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/PasarelaApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/config/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/config/AppConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/config/CorsConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/config/CorsConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/config/CorsFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/config/CorsFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/config/ResponseFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/config/ResponseFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/config/SecurityConfiguration.java" beforeDir="false" afterPath="$PROJECT_DIR$/../pasarela/src/main/java/com/arso/pasarela/config/SecurityConfiguration.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +192,8 @@
       <workItem from="1715721882325" duration="267000" />
       <workItem from="1715763159840" duration="5503000" />
       <workItem from="1716832447872" duration="1202000" />
-      <workItem from="1716910303442" duration="2858000" />
+      <workItem from="1716910303442" duration="4595000" />
+      <workItem from="1716980632826" duration="614000" />
     </task>
     <task id="LOCAL-00001" summary="initial commit">
       <option name="closed" value="true" />

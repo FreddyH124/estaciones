@@ -6,7 +6,7 @@ import com.arso.estaciones.model.Estacion;
 public class DTOHelper {
 
     public static EstacionDTO fromEntity(Estacion estacion) {
-        return new EstacionDTO(estacion.getId(), estacion.getNombre(), estacion.getPuestos());
+        return new EstacionDTO(estacion.getId(), estacion.getNombre(), estacion.getPuestos(), estacion.getCoordenadas().getLat(), estacion.getCoordenadas().getLng());
     }
 
     public static BicicletaDTO fromEntity(Bicicleta bicicleta) {
