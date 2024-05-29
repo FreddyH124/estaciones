@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Evento implements Serializable {
@@ -15,8 +16,15 @@ public class Evento implements Serializable {
 	@JsonProperty
 	private String idEstacion;
 	@JsonProperty
+	@JsonFormat(shape = JsonFormat.Shape.NUMBER)
 	private Date tiempo;
-	
+
+
+	public Evento() {
+
+	}
+
+
 	public Evento(String tipo, Date tiempo, String idBicicleta, String idEstacion) {
 		this.tiempo = tiempo;
 		this.tipo = tipo;
@@ -38,10 +46,6 @@ public class Evento implements Serializable {
 
 	public void setIdBicicleta(String idBicicleta) {
 		this.idBicicleta = idBicicleta;
-	}
-
-	public Evento() {
-		
 	}
 
 	public String getTipo() {

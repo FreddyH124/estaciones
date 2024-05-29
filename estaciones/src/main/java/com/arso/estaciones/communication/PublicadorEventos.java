@@ -14,7 +14,7 @@ public class PublicadorEventos /*implements IPublicadorEventos*/{
 
 	public void sendMessage(Object evento) {
 		rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, 
-				RabbitMQConfig.ROUTING_KEY,
+				"arso2",
 				evento);
 		
 	}

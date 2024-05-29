@@ -30,6 +30,7 @@ services:
       depends_on:
         - mongo
         - rabbitmq
+        - alquileres
 
     usuarios:
       build: LoginApi/

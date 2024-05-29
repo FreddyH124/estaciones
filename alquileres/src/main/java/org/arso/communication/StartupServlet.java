@@ -7,6 +7,7 @@ public class StartupServlet extends HttpServlet {
 
     @Override
     public void init() throws ServletException {
+        System.out.println("Inicializando StartupServlet...");
         ConsumidorEventos consumidor = new ConsumidorEventos();
         try {
             consumidor.Escuchar();

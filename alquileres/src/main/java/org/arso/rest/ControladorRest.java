@@ -42,12 +42,12 @@ public class ControladorRest {
 	@RolesAllowed("NORMAL")
 	public Response reservarBicileta( @PathParam("idUsuario") String idUsuario,
 									  @PathParam("idBicicleta") String idBicicleta) throws Exception {
-		
+		Response r = Response.status(Response.Status.NO_CONTENT).build();
 		try {
 			servicioAlquileres.reservarBicicleta(idUsuario, idBicicleta);
 			return Response.status(Response.Status.CREATED).build();
 		} catch (IllegalArgumentException e) {
-			
+
 			Response.status(Response.Status.BAD_REQUEST).build();
 		}
 		return Response.status(Response.Status.NO_CONTENT).build();
@@ -58,14 +58,15 @@ public class ControladorRest {
 	@Path("reservas/{idUsuario}/confirmar")
 	@RolesAllowed("NORMAL")
 	public Response confirmarReserva(@PathParam("idUsuario") String idUsuario) throws Exception {
+		Response r = Response.status(Response.Status.NO_CONTENT).build();
 		try {
 			servicioAlquileres.confirmarReserva(idUsuario);
 			return Response.status(Response.Status.OK).build();
 		} catch (IllegalStateException e) {
-			Response.status(Response.Status.BAD_REQUEST).build();
+			r = Response.status(Response.Status.BAD_REQUEST).build();
 		}
-		
-		return Response.status(Response.Status.NO_CONTENT).build();
+
+		return r;
 	}
 	
 	@POST
@@ -73,13 +74,14 @@ public class ControladorRest {
 	@RolesAllowed("NORMAL")
 	public Response alquilarBicicleta(@PathParam("idUsuario") String idUsuario,
 									  @PathParam("idBicicleta") String idBicicleta) throws Exception {
+		Response r = Response.status(Response.Status.NO_CONTENT).build();
 		try {
 			servicioAlquileres.alquilarBicicleta(idUsuario, idBicicleta);
 		} catch (IllegalStateException e) {
-			Response.status(Response.Status.BAD_REQUEST).build();
+			r = Response.status(Response.Status.BAD_REQUEST).build();
 		}
-		
-		return Response.status(Response.Status.NO_CONTENT).build();
+
+		return r;
 	}
 	
 	@POST

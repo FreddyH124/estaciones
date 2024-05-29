@@ -89,15 +89,17 @@ public class ServicioEstaciones implements IServicioEstaciones {
             Bicicleta bicicleta = bicicletaOptional.get();
             bicicleta.darDeBaja(motivo);
             repositorioBicicletas.save(bicicleta);
+
+            //Creamos el evento
+            Evento evento = new Evento("bicicleta-desactivada", new Date(), idBicicleta, bicicleta.getEstacionActual().getId());
+            ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
+            String json = ow.writeValueAsString(evento);
+            publicador.sendMessage(json);
         }else{
             throw new EntidadNoEncontrada("La bicicleta: " + idBicicleta + " no se encuentra en la BBDD");
         }
         
-        //Creamos el evento
-        Evento evento = new Evento("bicicleta-desactivada", new Date(), idBicicleta, "");
-        ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
-		String json = ow.writeValueAsString(evento);
-        publicador.sendMessage(json);
+
     }
 
     @Override
